@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>FRC Dashboard</title>
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/my.css" rel="stylesheet">
+</head>
+
+<body>
+	<article class="field">
+		<div id="position" class="point">
+			<span class="angle">→</span>
+		</div>
+		<svg id="playingfield" height="323.38px" width="628px">
+			<path d="M0 161.69 L628 161.69" stroke-dasharray="3,5" style="stroke-width: 1px;"></path> <!--===========MIDDLE LINE============-->
+			<path class="fill" d="M271.47 105.25 L271.47 218.13 L356.53 218.13 L356.53 105.25 Z"></path>
+			<path d="M271.47 218.13 L261.47 228.13"></path>
+			<path d="M356.53 105.25 L366.53 95.25"></path>
+			<path d="M271.47 105.25 L261.47 95.25"></path>
+			<path d="M356.53 218.13 L366.53 228.13"></path>
+			<path d="M0 29.69 L0 293.69 L36 323.38 L592 323.38 L628 293.69 L628 29.69 L592 0 L36 0 Z"></path>
+			<rect x="196" y="95.25" width="236" height="132.88"></rect>
+			<rect x="278" y="0" width="72" height="95.25"></rect>
+			<rect x="278" y="228.13" width="72" height="95.25"></rect>
+			<path d="M314 0 L314 323.38" stroke-dasharray="3,5" style="stroke-width: 1px;"></path>
+			<rect x="261.47" y="95.25" width="105.06" height="132.88"></rect>
+			<rect class="fill" x="290" y="71.57" width="48" height="36"></rect>
+			<rect class="fill" x="290" y="215.81" width="48" height="36"></rect>
+			<rect class="fill" x="307" y="107.57" width="12" height="108"></rect>
+
+			<rect class="fill" x="159" y="127.25" width="19" height="68.88"></rect>
+			<rect x="0" y="101.69" height="48" width="36"></rect>
+			<rect x="140" y="85.25" height="152.88" width="56"></rect>
+			<rect x="98" y="139.19" height="45" width="42"></rect>
+			<rect x="140" y="85.25" width="56" height="42"></rect>
+			<rect x="140" y="196" width="56" height="42"></rect>
+			<path d="M120 0 L120 323.38"></path>
+
+			<rect x="432" y="85.25" width="56" height="42"></rect>
+			<rect x="432" y="196" width="56" height="42"></rect>
+			<rect class="fill" x="450" y="127.25" width="19" height="68.88"></rect>
+			<rect x="432" y="85.25" height="152.88" width="56"></rect>
+			<rect x="488" y="139.19" height="45" width="42"></rect>
+			<rect x="592" y="173.69" height="48" width="36"></rect>
+			<path d="M508 0 L508 323.38"></path>
+		</svg> 
+	</article>
+	<header>
+		<!-- Tells whether robot is connected to dashboard. -->
+		<div id="robot-state">Unknown state</div>
+		<button id="tuning-button">Tuning</button>
+	</header>
+	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
+		More explanation in that CSS rule. -->
+	<!--<div id="camera"></div>-->
+	<div id="tuning" style="display: none;">
+		<input id="name" type="text" placeholder="Property">
+		<input id="value" type="text" placeholder="Value">
+		<button id="set">Set</button>
+		<button id="get">Get</button>
+	</div>
+	<!--<div class="center">
+		<svg id="arm-move" width="500" height="500">
+			<rect x="50" y="300" width="250" height="50"></rect>
+		</svg>
+	</div>-->
+	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
+		<!-- Clock that shows up in top left -->
+	<div id="timer">2:15</div>
+	<article>
+		<!-- Gyroscope -->
+		<svg id="gyro">
+			<circle cx="85" cy="85" r="83"></circle>
+			<circle cx="85" cy="85" r="50"></circle>
+			<rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
+			<text id="gyro-number" x="90" y="115">0º</text>
+		</svg>
+		<!-- Example robot diagram, arm moves when encoder value changes -->
+		<svg id="arm-move" width="500" height="500">
+			<rect x="50" y="300" width="250" height="50"></rect>
+			<rect x="75" y="100" width="75" height="200"></rect>
+			<rect class="arms" x="0" y="240" width="75" height="20"></rect>
+			<rect class="arms" x="0" y="265" width="75" height="20"></rect>
+			<circle cx="99.5" cy="350" r="20"></circle>
+			<circle cx="172" cy="350" r="20"></circle>
+			<circle cx="244.5" cy="350" r="20"></circle>
+			<circle cx="95" cy="130" r="2" style="fill:#FFF"></circle>
+			<circle cx="125" cy="130" r="2" style="fill:#FFF"></circle>
+			<path d="M95 145 Q 110 160, 125 145">
+		</svg>
+	</article>
+	<!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
+	<aside>
+		<!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
+			The <p> below then says the value. -->
+		<div id="example-section">
+			<button id="example-button">Change example value</button>
+			<p id="example-readout">Value is undefined</p>
+		</div>
+		<!-- Autonomous selector -->
+		<div class="select-container">
+			<select id="auto-select">
+				<option>No auto modes found</option>
+				<!-- This gets populated by JS -->
+			</select>
+		</div>
+		<div>
+			<p>Adjust arm height</p>
+			<input id="arm-position" type="range" min="0" max="1200" value="770">
+		</div>
+	</aside>
+	<div class="greybox">
+		<div id="login">
+			<input id="connect-address" type="text" value="localhost" disabled>
+			<button id="connect" disabled>Connecting</button>
+		</div>
+	</div>
+	<script src="tryIPC.js"></script>
+	<script src="networktables/networktables.js"></script>
+	<script src="ui.js"></script>
+</body>
+
+</html>
