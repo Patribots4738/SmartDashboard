@@ -170,10 +170,15 @@ NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
 });
 
 NetworkTables.addKeyListener("/SmartDashboard/position", (key,val)=>{
-    var botx = Number(val.x);
-    var boty = Number(val.y);
-    var botangle = Number(val.angle);
-    ui.position.style = "left: "+botx+"px;top: "+boty+"px;transform: rotate("+angle+"deg);";
+    var str = val.split(",");
+    var arr = [];
+    for (var i = 0; i < str.length; i++) {
+        arr.push(Number(str[i]));
+    }
+    var botx = arr[0];
+    var boty = arr[1];
+    var botangle = arr[2];
+    ui.position.style = "left: "+botx+"px;top: "+boty+"px;transform: rotate("+botangle+"deg);";
 })
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
