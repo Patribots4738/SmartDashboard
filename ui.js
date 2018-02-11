@@ -175,10 +175,10 @@ NetworkTables.addKeyListener("/SmartDashboard/position", (key,val)=>{
     for (var i = 0; i < str.length; i++) {
         arr.push(Number(str[i]));
     }
-    var botx = arr[0];
-    var boty = arr[1];
+    var botx = arr[1];
+    var boty = arr[0];
     var botangle = arr[2];
-    ui.position.style = "left: "+botx+"px;top: "+boty+"px;transform: rotate("+botangle+"deg);";
+    ui.position.style = "left: "+(botx-5)+"px;top: "+(boty-5)+"px;transform: rotate("+botangle+"deg);";
 })
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
@@ -203,6 +203,7 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value)
 
 // Global Listener
 function onValueChanged(key, value, isNew) {
+	console.log("valuechanged");
     // Sometimes, NetworkTables will pass booleans as strings. This corrects for that.
     if (value == 'true') {
         value = true;
