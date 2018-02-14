@@ -52,14 +52,12 @@ body > * {
 #timer {
     font-family: monospace;
     display: block;
-    height: 20vh;
-    width: 30vw;
+    height: 7vh;
+    width: 10vw;
     top: 0;
     left: 0;
-    font-size: 20vh;
+    font-size: 7vh;
     line-height: .8;
-    top:325px;
-    left:900px;
     z-index: 1;
 }
 header {
@@ -72,16 +70,17 @@ header {
 #camera {
     padding: 0;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 50vw;
-    height: 80vh;
+    width: 640px;
+    height: 480px;
     overflow: hidden;
-    background-color: #333;
+    background-color: #00FFFF;
+    z-index: -210;
+    top: 10px;
+    left: 10px;
     /* You'll need to mess with this a bit to get your camera to work. 
      * Replace the url with a live-updating image feed from your camera. Using other camera streaming 
      * systems will require some tweaking.*/
-    background-image: url('LINK TO CAMERA SOURCE HERE');
+   /* background-image: url('LINK TO CAMERA SOURCE HERE');*/
 }
 #tuning {
     width: 50vw;
@@ -272,11 +271,17 @@ html, body {
     left: 10px;
 }
 .field {
-    position: fixed;
+    position: relative;
     top:0px;
     left:0px;
     width:628px;
     z-index: 1;
     height:324px;
     padding: 0px;
+}
+#shift {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
 }

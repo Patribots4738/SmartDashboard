@@ -1,9 +1,4 @@
 // Define UI elements
-let ui = {
-    timer: document.getElementById('timer'),
-    robotState: document.getElementById('robot-state').firstChild,
-    gyro: {
-        container: document.getElementById('gyro'),
         val: 0,
         offset: 0,
         visualVal: 0,
@@ -14,9 +9,9 @@ let ui = {
         arm: document.getElementById('robot-arm'),
         grabber: document.getElementById('grabber')
     },
-    /*arms: {
+    arms: {
         grabber: document.getElementById('grabberadjust')
-    },*/
+    },
     example: {
         button: document.getElementById('example-button'),
         readout: document.getElementById('example-readout').firstChild
@@ -31,10 +26,16 @@ let ui = {
     },
     autoSelect: document.getElementById('auto-select'),
     armPosition: document.getElementById('arm-position'),
-    position: document.getElementById('position')
+    position: document.getElementById('position'),
+    destination: document.getElementById('destination')
 };
 let address = document.getElementById('connect-address'),
     connect = document.getElementById('connect');
+let ui = {
+    timer: document.getElementById('timer'),
+    robotState: document.getElementById('robot-state').firstChild,
+    gyro: {
+        container: document.getElementById('gyro'),
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
 // NetworkTables.addWsConnectionListener(onNetworkTablesConnection, true);
@@ -85,7 +86,7 @@ function onRobotConnection(connected) {
             connect.disabled = false;
             connect.firstChild.data = 'Connect';
             // Add the default address and select xxxx
-            address.value = 'roborio-xxxx.local';
+            address.value = '';
             address.focus();
             address.setSelectionRange(8, 12);
             // On click try to connect and disable the input and the button
@@ -179,6 +180,17 @@ NetworkTables.addKeyListener("/SmartDashboard/position", (key,val)=>{
     var boty = arr[0];
     var botangle = arr[2];
     ui.position.style = "left: "+(botx-5)+"px;top: "+(boty-5)+"px;transform: rotate("+botangle+"deg);";
+})
+NetworkTables.addKeyListener("/SmartDashboard/destination", (key,val) =>{
+	var str = val.split(",");
+    var arr = [];
+    for (var i = 0; i < str.length; i++) {
+        arr.push(Number(str[i]));
+    }
+    var botx = arr[1];
+    var boty = arr[0];
+    var botangle = arr[2];
+    ui.destination.style = "left: "+(botx-5)+"px;top: "+(boty-5)+"px;transform: rotate("+botangle+"deg);";
 })
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
