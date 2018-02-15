@@ -1,4 +1,9 @@
 // Define UI elements
+let ui = {
+    timer: document.getElementById('timer'),
+    robotState: document.getElementById('robot-state').firstChild,
+    gyro: {
+        container: document.getElementById('gyro'),
         val: 0,
         offset: 0,
         visualVal: 0,
@@ -31,11 +36,6 @@
 };
 let address = document.getElementById('connect-address'),
     connect = document.getElementById('connect');
-let ui = {
-    timer: document.getElementById('timer'),
-    robotState: document.getElementById('robot-state').firstChild,
-    gyro: {
-        container: document.getElementById('gyro'),
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
 // NetworkTables.addWsConnectionListener(onNetworkTablesConnection, true);
