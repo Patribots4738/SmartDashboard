@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<title>FRC Dashboard</title>
 	<link href="css/style.css" rel="stylesheet">
-	<link href="css/my.css" rel="stylesheet">
 </head>
 
 <body>
@@ -145,6 +144,13 @@
 			<input id="arm-position" type="range" min="0" max="1200" value="770">
 		</div>
 	</aside>
+	<div class="startpos center">
+		<span class="item">Left: <input id="left" type="radio" name="pos"></span>
+		<span class="item">Middle: <input id="mid" type="radio" name="pos"></span>
+		<span class="item">Right: <input id="right" type="radio" name="pos"></span>
+		<span class="item">Side: <input id="side" type="checkbox" name="side"></span>
+		<span class="item"><input id="done" type="submit" name="side" value="Done"></span>
+	</div>
 	<div class="greybox">
 		<div id="login">
 			<input id="connect-address" type="text" value="roborio-4738-FRC.local" disabled>
