@@ -213,7 +213,6 @@ body.login-close >:not(.greybox) {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100%;
 }
 .h {
     display: flex;
@@ -293,4 +292,17 @@ html, body {
 }
 .dontshowthisbecausejavascriptgetsmad {
     display: none;
+}
+.startpos {
+    position: fixed;
+    z-index: 100020202;
+    top: 510px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    left: 30px;
+}
+.item {
+    padding: 10px;
+    background-color: #333;
+    margin: 5px;
 }
