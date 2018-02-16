@@ -9,8 +9,12 @@
 </head>
 
 <body>
+	<div id="shift">
 	<article class="field">
 		<div id="position" class="point">
+			<span class="angle">→</span>
+		</div>
+		<div id="destination" class="point">
 			<span class="angle">→</span>
 		</div>
 		<svg id="playingfield" height="323.38px" width="628px">
@@ -45,9 +49,40 @@
 			<rect x="488" y="139.19" height="45" width="42"></rect>
 			<rect x="592" y="173.69" height="48" width="36"></rect>
 			<path d="M508 0 L508 323.38"></path>
+		</svg> 
+	</article>
+	</div>
+	
+	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
+		More explanation in that CSS rule. -->
+	<div id="camera"></div>
+	<!--<div class="center">
+		<svg id="arm-move" width="500" height="500">
+			<rect x="50" y="300" width="250" height="50"></rect>
+		</svg>
+	</div>-->
+	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
+		<!-- Clock that shows up in top left -->
+	<div style="all:unset;left:10px;top:10px;position: fixed;z-index: 10000000000000000000000000000000000000">
+		<div id="timer">2:15</div>
+	</div>
+	<article class="offset">
+		<!-- Example robot diagram, arm moves when encoder value changes -->
+		<svg id="arm-move" width="500" height="500">
+			<rect x="50" y="300" width="250" height="50"></rect>
+			<rect x="75" y="100" width="75" height="200"></rect>
+			<rect class="arms" x="0" y="240" width="75" height="20"></rect>
+			<rect class="arms" x="0" y="265" width="75" height="20"></rect>
+			<circle cx="99.5" cy="350" r="20"></circle>
+			<circle cx="172" cy="350" r="20"></circle>
+			<circle cx="244.5" cy="350" r="20"></circle>
+			<circle cx="95" cy="130" r="2" style="fill:#FFF"></circle>
+			<circle cx="125" cy="130" r="2" style="fill:#FFF"></circle>
+			<path d="M95 145 Q 110 160, 125 145">
 		</svg>
 	</article>
-	<header>
+	
+	<header class="dontshowthisbecausejavascriptgetsmad">
 		<!-- Tells whether robot is connected to dashboard. -->
 		<div id="robot-state">Unknown state</div>
 		<button id="tuning-button">Tuning</button>
@@ -55,7 +90,7 @@
 	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
 		More explanation in that CSS rule. -->
 	<!--<div id="camera"></div>-->
-	<div id="tuning" style="display: none;">
+	<div id="tuning" class="dontshowthisbecausejavascriptgetsmad">
 		<input id="name" type="text" placeholder="Property">
 		<input id="value" type="text" placeholder="Value">
 		<button id="set">Set</button>
@@ -68,8 +103,7 @@
 	</div>-->
 	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
 		<!-- Clock that shows up in top left -->
-	<div id="timer">2:15</div>
-	<article>
+	<article class="dontshowthisbecausejavascriptgetsmad">
 		<!-- Gyroscope -->
 		<svg id="gyro">
 			<circle cx="85" cy="85" r="83"></circle>
@@ -92,7 +126,7 @@
 		</svg>
 	</article>
 	<!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-	<aside>
+	<aside class="dontshowthisbecausejavascriptgetsmad">
 		<!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
 			The <p> below then says the value. -->
 		<div id="example-section">

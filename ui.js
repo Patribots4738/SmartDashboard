@@ -102,9 +102,33 @@ function onRobotConnection(connected) {
 
 /**** KEY Listeners ****/
 
+// Gyro rotation
+let updateGyro = (key, value) => {
+    ui.gyro.val = value;
+    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
+    if (ui.gyro.visualVal < 0) {
+        ui.gyro.visualVal += 360;
+    }
+    ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
+    ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
+};
+NetworkTables.addKeyListener('/SmartDashboard/drive/navx/yaw', updateGyro);
+
 // The following case is an example, for a robot with an arm at the front.
 // Info on the actual robot that this works with can be seen at thebluealliance.com/team/1418/2016.
-
+NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
+    // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
+    if (value > 1140) {
+        value = 1140;
+    }
+    else if (value < 0) {
+        value = 0;
+    }
+    // Calculate visual rotation of arm
+    var armAngle = value * 3 / 20 - 45;
+    // Rotate the arm in diagram to match real arm
+    ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
+});
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
     // Sometimes, NetworkTables will pass booleans as strings. This corrects for that.
     if (typeof value === 'string')
@@ -184,6 +208,11 @@ NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
     ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
 });
 
+// Load list of prewritten autonomous modes
+NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
+    ui.autoSelect.value = value;
+});
+
 // Global Listener
 function onValueChanged(key, value, isNew) {
 	console.log("valuechanged");
@@ -256,6 +285,42 @@ function onValueChanged(key, value, isNew) {
     }
 }
 
+// The rest of the doc is listeners for UI elements being clicked on
+ui.example.button.onclick = function () {
+    // Set NetworkTables values to the opposite of whether button has active class.
+    NetworkTables.putValue('/SmartDashboard/example_variable', this.className != 'active');
+};
+// Reset gyro value to 0 on click
+ui.gyro.container.onclick = function () {
+    // Store previous gyro val, will now be subtracted from val for callibration
+    ui.gyro.offset = ui.gyro.val;
+    // Trigger the gyro to recalculate value.
+    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
+};
+// Open tuning section when button is clicked
+ui.tuning.button.onclick = function () {
+    if (ui.tuning.list.style.display === 'none') {
+        ui.tuning.list.style.display = 'block';
+    }
+    else {
+        ui.tuning.list.style.display = 'none';
+    }
+};
+// Manages get and set buttons at the top of the tuning pane
+ui.tuning.set.onclick = function () {
+    // Make sure the inputs have content, if they do update the NT value
+    if (ui.tuning.name.value && ui.tuning.value.value) {
+        NetworkTables.putValue('/SmartDashboard/' + ui.tuning.name.value, ui.tuning.value.value);
+    }
+};
+ui.tuning.get.onclick = function () {
+    ui.tuning.value.value = NetworkTables.getValue(ui.tuning.name.value);
+};
+// Update NetworkTables when autonomous selector is changed
+ui.autoSelect.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
+};
+// Get value of arm height slider when it's adjusted
 ui.armPosition.oninput = function () {
     NetworkTables.putValue('/SmartDashboard/arm/encoder', parseInt(this.value));
 }
