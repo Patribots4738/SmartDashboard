@@ -54,7 +54,9 @@
 	
 	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
 		More explanation in that CSS rule. -->
-	<div id="camera"></div>
+	<div id="camera">
+		<div id="timer">2:15</div>
+	</div>
 	<!--<div class="center">
 		<svg id="arm-move" width="500" height="500">
 			<rect x="50" y="300" width="250" height="50"></rect>
@@ -62,9 +64,6 @@
 	</div>-->
 	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
 		<!-- Clock that shows up in top left -->
-	<div style="all:unset;left:10px;top:10px;position: fixed;z-index: 10000000000000000000000000000000000000">
-		<div id="timer">2:15</div>
-	</div>
 	<article class="offset">
 		<!-- Example robot diagram, arm moves when encoder value changes -->
 		<svg id="arm-move" width="500" height="500">
@@ -151,12 +150,13 @@
 		<span class="item">Side: <input id="side" type="checkbox" name="side"></span>
 		<span class="item"><input id="done" type="submit" name="side" value="Done"></span>
 	</div>
-	<div class="greybox">
+	<div class="greybox" style="z-index: 123456789123456789123456789123456789;">
 		<div id="login">
 			<input id="connect-address" type="text" value="roborio-4738-FRC.local" disabled>
 			<button id="connect" disabled>Connecting</button>
 		</div>
 	</div>
+	<!--<script type="text/javascript" src="test.js"></script> testing movement-->
 	<script src="tryIPC.js"></script>
 	<script src="networktables/networktables.js"></script>
 	<script src="ui.js"></script>
