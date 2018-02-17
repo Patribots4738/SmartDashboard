@@ -174,15 +174,14 @@ document.addEventListener("click",submitPos);
 
 function submitPos(e) {
 	if (e.target.id==="done") {
-		let side = document.getElementById('side');
 		if (document.getElementById('left').checked) {
-			NetworkTables.putValue("/SmartDashboard/start","1,"+(side.checked?"1":"0"));
+			NetworkTables.putValue("/SmartDashboard/start",1);
 		}
 		if (document.getElementById('mid').checked) {
-            NetworkTables.putValue("/SmartDashboard/start","2,"+(side.checked?"1":"0"));
+            NetworkTables.putValue("/SmartDashboard/start",2);
         }
         if (document.getElementById('right').checked) {
-        	NetworkTables.putValue("/SmartDashboard/start","3,"+(side.checked?"1":"0"));
+        	NetworkTables.putValue("/SmartDashboard/start",3);
         }
 	}
 }
