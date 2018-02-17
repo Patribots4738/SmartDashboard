@@ -1,229 +1,229 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 ::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 body {
-    font: 16px sans-serif;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: white;
-    overflow: hidden;
-    background: #222;
+	font: 16px sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: white;
+	overflow: hidden;
+	background: #222;
 }
 button, input[type="text"], input[type="number"], .select-container, select {
-    color: white;
-    background: #444;
-    border: none;
-    font-size: 14px;
-    padding: 6px 8px;
-    cursor: pointer;
-    outline: 0;
+	color: white;
+	background: #444;
+	border: none;
+	font-size: 14px;
+	padding: 6px 8px;
+	cursor: pointer;
+	outline: 0;
 }
 .select-container {
-    padding: 0;
-    display: inline-block;
+	padding: 0;
+	display: inline-block;
 }
 select {
-    border: none;
-    background: none;
-    color: white;
-    height: 25px;
+	border: none;
+	background: none;
+	color: white;
+	height: 25px;
 }
 input[type="text"], input[type="number"] {
-    cursor: text;
+	cursor: text;
 }
 input[type="checkbox"] {
-    -webkit-filter: saturate(0);
-    filter: saturate(0);
+	-webkit-filter: saturate(0);
+	filter: saturate(0);
 }
 /* Major interface panes, aside, article, header, etc. */
 body > * {
-    padding:10px;
-    position: fixed;
-    overflow: hidden;
-    background: #222;
+	padding:10px;
+	position: fixed;
+	overflow: hidden;
+	background: #222;
 }
 #timer {
-    font-family: monospace;
-    display: block;
-    height: fit-content;
-    width: fit-content;
-    top: 0;
-    left: 0;
-    font-size: 3em;
-    line-height: .8;
-    z-index: 1;
-    background-color: hsla(0,0%,40%,.5);
-    padding: .2em;
+	font-family: monospace;
+	display: block;
+	height: fit-content;
+	width: fit-content;
+	font-size: 3em;
+	line-height: .8;
+	z-index: 1;
+	background-color: hsla(0,0%,40%,.5);
+	padding: .2em;
+	top:0px;
+	right:0px;
 }
 header {
-    width: 20vw;
-    height: 20vh;
-    top: 0;
-    left: 30vw;
-    color: white;
+	width: 20vw;
+	height: 20vh;
+	top: 0;
+	left: 30vw;
+	color: white;
 }
 #camera {
-    padding: 0;
-    position: fixed;
-    width: 640px;
-    height: 480px;
-    overflow: hidden;
-    background-color: #00FFFF;
-    z-index: -210;
-    top: 10px;
-    left: 10px;
-    /* You'll need to mess with this a bit to get your camera to work. 
-     * Replace the url with a live-updating image feed from your camera. Using other camera streaming 
-     * systems will require some tweaking.*/
+	padding: 0;
+	position: fixed;
+	width: 640px;
+	height: 480px;
+	overflow: hidden;
+	background-color: #00FFFF;
+	z-index: 101;
+	top: 10px;
+	right: 10px;
+	/* You'll need to mess with this a bit to get your camera to work. 
+	 * Replace the url with a live-updating image feed from your camera. Using other camera streaming 
+	 * systems will require some tweaking.*/
    /* background-image: url('LINK TO CAMERA SOURCE HERE');*/
 }
 #tuning {
-    width: 50vw;
-    height: 80vh;
-    bottom: 0;
-    left: 0;
+	width: 50vw;
+	height: 80vh;
+	bottom: 0;
+	left: 0;
 }
 #tuning div {
-    margin: 20px 0;
+	margin: 20px 0;
 }
 #tuning p {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 article {
-    top: 0;
-    left: 50vw;
-    height: 100vh;
-    width: 35vw;
+	top: 0;
+	left: 50vw;
+	height: 100vh;
+	width: 35vw;
 }
 svg * {
-    stroke: white;
-    fill: #222;
-    stroke-width: 2;
-    -webkit-transform-origin: center;
-    -ms-transform-origin: center;
-    transform-origin: center;
+	stroke: white;
+	fill: #222;
+	stroke-width: 2;
+	-webkit-transform-origin: center;
+	-ms-transform-origin: center;
+	transform-origin: center;
 }
 text {
-    font-size: 16px;
-    letter-spacing: 2px;
-    stroke: none;
-    fill: white;
+	font-size: 16px;
+	letter-spacing: 2px;
+	stroke: none;
+	fill: white;
 }
 #gyro {
-    width: 175px;
-    height: 175px;
-    margin-left: 30px;
-    margin-top: 15px;
+	width: 175px;
+	height: 175px;
+	margin-left: 30px;
+	margin-top: 15px;
 }
 #gyro-arm {
-    -webkit-transform-origin: bottom;
-    -ms-transform-origin: bottom;
-    transform-origin: bottom;
+	-webkit-transform-origin: bottom;
+	-ms-transform-origin: bottom;
+	transform-origin: bottom;
 }
 #gyro-number {
-    font-size: 25px;
-    text-anchor: middle;
+	font-size: 25px;
+	text-anchor: middle;
 }
 #robot-diagram {
-    position: absolute;
-    bottom: 1px;
-    right: 1vw;
+	position: absolute;
+	bottom: 1px;
+	right: 1vw;
 }
 #robot-arm {
-    -webkit-transform-origin: right;
-    -ms-transform-origin: right;
-    transform-origin: right;
+	-webkit-transform-origin: right;
+	-ms-transform-origin: right;
+	transform-origin: right;
 }
 #team {
-    font-size: 28px;
-    letter-spacing: -1px;
+	font-size: 28px;
+	letter-spacing: -1px;
 }
 aside {
-    right: 0;
-    top: 0;
-    width: 15vw;
-    height: 100vh;
+	right: 0;
+	top: 0;
+	width: 15vw;
+	height: 100vh;
 }
 aside > * {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 .greybox {
-    position: fixed;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 2;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 2;
 }
 body.login-close > .greybox {
-    display: none
+	display: none
 }
 #login {
-    text-align: center;
-    display: block;
-    margin: 14em auto 0 auto;
-    width: 18em;
-    overflow: hidden;
-    animation: 1s linear;
-    padding: 4px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.8)
+	text-align: center;
+	display: block;
+	margin: 14em auto 0 auto;
+	width: 18em;
+	overflow: hidden;
+	animation: 1s linear;
+	padding: 4px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.8)
 }
 body.login-close #login {
-    opacity: 1;
-    width: 0;
-    animation: 1s linear;
+	opacity: 1;
+	width: 0;
+	animation: 1s linear;
 }
 #login :disabled {
-    filter: opacity(0.6)
+	filter: opacity(0.6)
 }
 #login > button{
-    width:6em
+	width:6em
 }
 #connect{
-    text-align: center;
+	text-align: center;
 }
 /*
  Blur transition that does not work
 
 body:not(.login-close) >:not(.greybox) {
-    animation: blur 1s normal forwards
+	animation: blur 1s normal forwards
 }
 body.login-close >:not(.greybox) {
-    animation: blur 1s reverse backwards
+	animation: blur 1s reverse backwards
 }
 @keyframes blur {
-    from {
-        filter: blur(0);
-    }
-    to {
-        filter: blur(3px);
-    }
+	from {
+		filter: blur(0);
+	}
+	to {
+		filter: blur(3px);
+	}
 }
 */
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .h {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 .center>* {
-    margin: auto;
+	margin: auto;
 }
 #arm-move>* {
-    stroke: #FFFFFF;
-    fill: #07093A;
+	stroke: #FFFFFF;
+	fill: hsl(0,0%,30%);
 }
 #arm-move {
 	position: relative;
@@ -231,78 +231,79 @@ body.login-close >:not(.greybox) {
 }
 body {
    /* background-color: #07093A;*/
-    overflow: hidden;
+	overflow: hidden;
 }
 #playingfield>* {
-    stroke: #FFFFFF;
-    stroke-width: 2px;
-    fill:none;
+	stroke: #FFFFFF;
+	stroke-width: 2px;
+	fill:none;
 }
 #update {
-    position: fixed;
-    top:125px;
-    left:750px;
-    -webkit-appearance: slider-vertical;
+	position: fixed;
+	top:125px;
+	left:750px;
+	-webkit-appearance: slider-vertical;
 }
 html, body {
   height: 100%;
   color:#FFFFFF;
 }
 #x,#y {
-    position:fixed;
+	position:fixed;
 }
 #y{
-    top:25px;
+	top:25px;
 }
 #playingfield>.fill {
-    stroke: #FFFFFF;
-    stroke-width: 2px;
-    fill: #222222;
+	stroke: #FFFFFF;
+	stroke-width: 2px;
+	fill: #222222;
 }
 .point{
-    position: fixed;
-    width:12px;
-    height:12px;
-    border-radius:6px;
-    background-color:red;
+	position: fixed;
+	width:12px;
+	height:12px;
+	border-radius:6px;
+	background-color:red;
 }
 .angle {
-    position: relative;
-    top: -6px;
-    left: 10px;
+	position: relative;
+	top: -6px;
+	left: 10px;
 }
 .field {
-    position: relative;
-    top:0px;
-    left:0px;
-    width:628px;
-    z-index: 1;
-    height:324px;
-    padding: 0px;
+	position: relative;
+	top:0px;
+	left:0px;
+	width:628px;
+	z-index: 1;
+	height:324px;
+	padding: 0px;
 }
 #shift {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1;
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 1;
 }
 .offset {
-    position: relative;
-    top:250px;
+	position: relative;
+	top:250px;
+	left:450px;
 }
 .dontshowthisbecausejavascriptgetsmad {
-    display: none;
+	display: none;
 }
 .startpos {
-    position: fixed;
-    z-index: 100020202;
-    top: 510px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    left: 30px;
+	position: fixed;
+	z-index: 100020202;
+	top: 510px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	left: 30px;
 }
 .item {
-    padding: 10px;
-    background-color: #333;
-    margin: 5px;
+	padding: 10px;
+	background-color: #333;
+	margin: 5px;
 }
