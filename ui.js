@@ -195,7 +195,7 @@ NetworkTables.addKeyListener("/SmartDashboard/position", (key,val)=>{
 	var botx = arr[1];
 	var boty = arr[0];
 	var botangle = arr[2];
-	ui.position.style = "left: "+(botx-15)+"px;top: "+(boty-15)+"px;transform: rotate("+botangle+"deg);";
+	ui.position.style = "left: "+(botx+15)+"px;top: "+(boty+15)+"px;transform: rotate("+botangle+"deg);";
 })
 NetworkTables.addKeyListener("/SmartDashboard/destination", (key,val) =>{
 	var str = val.split(",");
@@ -206,7 +206,7 @@ NetworkTables.addKeyListener("/SmartDashboard/destination", (key,val) =>{
 	var botx = arr[1];
 	var boty = arr[0];
 	var botangle = arr[2];
-	ui.destination.style = "left: "+(botx-5)+"px;top: "+(boty-5)+"px;transform: rotate("+botangle+"deg);";
+	ui.destination.style = "left: "+(botx+15)+"px;top: "+(boty+15)+"px;transform: rotate("+botangle+"deg);";
 })
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
