@@ -175,13 +175,13 @@ document.addEventListener("click",submitPos);
 function submitPos(e) {
 	if (e.target.id==="done") {
 		if (document.getElementById('left').checked) {
-			NetworkTables.putValue("/SmartDashboard/start",1);
+			NetworkTables.putValue("/SmartDashboard/start",-1);
 		}
 		if (document.getElementById('mid').checked) {
-            NetworkTables.putValue("/SmartDashboard/start",2);
+            NetworkTables.putValue("/SmartDashboard/start",0);
         }
         if (document.getElementById('right').checked) {
-        	NetworkTables.putValue("/SmartDashboard/start",3);
+        	NetworkTables.putValue("/SmartDashboard/start",1);
         }
 	}
 }
