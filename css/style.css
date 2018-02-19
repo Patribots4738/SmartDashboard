@@ -75,14 +75,15 @@ header {
 	width: 640px;
 	height: 480px;
 	overflow: hidden;
-	background-color: #00FFFF;
-	z-index: 101;
+	background-color: #00FFFF;*/
+	z-index: 1013;
 	top: 10px;
 	right: 10px;
-	/* You'll need to mess with this a bit to get your camera to work. 
-	 * Replace the url with a live-updating image feed from your camera. Using other camera streaming 
+	/* You'll need to mess with this a bit to get your camera to work.
+	 * Replace the url with a live-updating image feed from your camera. Using other camera streaming
 	 * systems will require some tweaking.*/
-   /* background-image: url('LINK TO CAMERA SOURCE HERE');*/
+    background-image: url('http://roborio-4738-frc.local:1181/stream.mjpg');
+    background-size: cover;
 }
 #tuning {
 	width: 50vw;
@@ -290,6 +291,7 @@ html, body {
 	position: relative;
 	top:250px;
 	left:450px;
+	z-index: -100;
 }
 .dontshowthisbecausejavascriptgetsmad {
 	display: none;
@@ -306,4 +308,7 @@ html, body {
 	padding: 10px;
 	background-color: #333;
 	margin: 5px;
+}
+#destination {
+	background-color: hsl(180,100%,80%);
 }
