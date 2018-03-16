@@ -175,14 +175,27 @@ document.addEventListener("click",submitPos);
 function submitPos(e) {
 	if (e.target.id==="done") {
 		if (document.getElementById('left').checked) {
-			NetworkTables.putValue("/SmartDashboard/start",-1);
+			NetworkTables.putValue("/SmartDashboard/start",1);
 		}
 		if (document.getElementById('mid').checked) {
-            NetworkTables.putValue("/SmartDashboard/start",0);
+            NetworkTables.putValue("/SmartDashboard/start",2);
         }
         if (document.getElementById('right').checked) {
-        	NetworkTables.putValue("/SmartDashboard/start",1);
+        	NetworkTables.putValue("/SmartDashboard/start",3);
         }
+	} else if (e.target.id==="autosubmit") {
+		let value = document.getElementById("autoDelay").value;
+		if (Number(value)) {
+			if (Number(value)%1===0) {
+				NetworkTables.putValue("/SmartDashboard/autoDelay",value);
+			} else {
+				alert("Please put in an integer for the amount of seconds, not a double!");
+				return;
+			}
+		} else {
+			alert("Please put in a number for the value!");
+			return;
+		}
 	}
 }
 
@@ -195,7 +208,7 @@ NetworkTables.addKeyListener("/SmartDashboard/position", (key,val)=>{
 	var botx = arr[1];
 	var boty = arr[0];
 	var botangle = arr[2];
-	ui.position.style = "left: "+(botx+14)+"px;top: "+(boty+14)+"px;transform: rotate("+botangle+"deg);";
+	ui.position.style = "left: "+(botx+15)+"px;top: "+(boty+15)+"px;transform: rotate("+botangle+"deg);";
 })
 NetworkTables.addKeyListener("/SmartDashboard/destination", (key,val) =>{
 	var str = val.split(",");
@@ -206,7 +219,7 @@ NetworkTables.addKeyListener("/SmartDashboard/destination", (key,val) =>{
 	var botx = arr[1];
 	var boty = arr[0];
 	var botangle = arr[2];
-	ui.destination.style = "background-color:Aqua; left: "+(botx+14)+"px;top: "+(boty+14)+"px;transform: rotate("+botangle+"deg);";
+	ui.destination.style = "left: "+(botx+15)+"px;top: "+(boty+15)+"px;transform: rotate("+botangle+"deg);";
 })
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/time_running', (key, value) => {
