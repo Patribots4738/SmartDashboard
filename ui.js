@@ -100,9 +100,17 @@ function onRobotConnection(connected) {
 	}
 }
 
+document.addEventListener("click",reconnect);
+
+function reconnect () {
+	if (e.target.id==="reconnect") {
+		ipc.send('connect', 'roborio-4738-FRC.local');
+	}
+}
+
 /**** KEY Listeners ****/
 
-// Gyro rotation
+// Gyro rotatione
 let updateGyro = (key, value) => {
 	ui.gyro.val = value;
 	ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
