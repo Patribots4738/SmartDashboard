@@ -3,168 +3,90 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>FRC Dashboard</title>
-	<link href="css/style.css" rel="stylesheet">
+	<title>SmashBoard</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/scrollbars.css">
 </head>
 
 <body>
-	<!--<div style="width: 100px;height:40px;padding:3px;background-color:#3853DC;border-radius:3px;position:fixed;top:0;right:650px;z-index:10000000;text-align: center;font-size:.75em" onclick="start();">Turn on Party Mode!</div>-->
-	<div id="reconnect">Reset Robot Connection</div>
-	<div id="shift">
-	<article class="field">
-		<div id="position" class="point">
-			<span class="angle">→</span>
-		</div>
-		<div id="destination" class="point">
-			<span class="angle">→</span>
-		</div>
-		<svg id="playingfield" height="323.38px" width="628px">
-			<path d="M0 161.69 L628 161.69" stroke-dasharray="3,5" style="stroke-width: 1px;"></path> <!--===========MIDDLE LINE============-->
-			<path class="fill" d="M271.47 105.25 L271.47 218.13 L356.53 218.13 L356.53 105.25 Z"></path>
-			<path d="M271.47 218.13 L261.47 228.13"></path>
-			<path d="M356.53 105.25 L366.53 95.25"></path>
-			<path d="M271.47 105.25 L261.47 95.25"></path>
-			<path d="M356.53 218.13 L366.53 228.13"></path>
-			<path d="M0 29.69 L0 293.69 L36 323.38 L592 323.38 L628 293.69 L628 29.69 L592 0 L36 0 Z"></path>
-			<rect x="196" y="95.25" width="236" height="132.88"></rect>
-			<rect x="278" y="0" width="72" height="95.25"></rect>
-			<rect x="278" y="228.13" width="72" height="95.25"></rect>
-			<path d="M314 0 L314 323.38" stroke-dasharray="3,5" style="stroke-width: 1px;"></path>
-			<rect x="261.47" y="95.25" width="105.06" height="132.88"></rect>
-			<rect class="fill" x="290" y="71.57" width="48" height="36"></rect>
-			<rect class="fill" x="290" y="215.81" width="48" height="36"></rect>
-			<rect class="fill" x="307" y="107.57" width="12" height="108"></rect>
+	<div id="x">✕</div>
 
-			<rect class="fill" x="159" y="127.25" width="19" height="68.88"></rect>
-			<rect x="0" y="101.69" height="48" width="36"></rect>
-			<rect x="140" y="85.25" height="152.88" width="56"></rect>
-			<rect x="98" y="139.19" height="45" width="42"></rect>
-			<rect x="140" y="85.25" width="56" height="42"></rect>
-			<rect x="140" y="196" width="56" height="42"></rect>
-			<path d="M120 0 L120 323.38"></path>
-
-			<rect x="432" y="85.25" width="56" height="42"></rect>
-			<rect x="432" y="196" width="56" height="42"></rect>
-			<rect class="fill" x="450" y="127.25" width="19" height="68.88"></rect>
-			<rect x="432" y="85.25" height="152.88" width="56"></rect>
-			<rect x="488" y="139.19" height="45" width="42"></rect>
-			<rect x="592" y="173.69" height="48" width="36"></rect>
-			<path d="M508 0 L508 323.38"></path>
-		</svg> 
-	</article>
-	</div>
-	
-	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-		More explanation in that CSS rule. -->
 	<div id="camera">
-		<div id="timer">2:15</div>
+		<div id="cameraFeed"></div>
+		<canvas id="placeholder"></canvas>
 	</div>
-	<!--<div class="center">
-		<svg id="arm-move" width="500" height="500">
-			<rect x="50" y="300" width="250" height="50"></rect>
-		</svg>
-	</div>-->
-	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
-		<!-- Clock that shows up in top left -->
-	<!--<article class="offset">
-		<svg id="arm-move" width="500" height="500">
-			<rect x="50" y="300" width="250" height="50"></rect>
-			<rect x="75" y="100" width="75" height="200"></rect>
-			<rect class="arms" x="0" y="240" width="75" height="20"></rect>
-			<rect class="arms" x="0" y="265" width="75" height="20"></rect>
-			<circle cx="99.5" cy="350" r="20"></circle>
-			<circle cx="172" cy="350" r="20"></circle>
-			<circle cx="244.5" cy="350" r="20"></circle>
-			<circle cx="95" cy="130" r="2" style="fill:#FFF"></circle>
-			<circle cx="125" cy="130" r="2" style="fill:#FFF"></circle>
-			<path d="M95 145 Q 110 160, 125 145">
-		</svg>
-	</article>-->
-	
-	<header class="dontshowthisbecausejavascriptgetsmad">
-		<!-- Tells whether robot is connected to dashboard. -->
-		<div id="robot-state">Unknown state</div>
-		<button id="tuning-button">Tuning</button>
-	</header>
-	<!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-		More explanation in that CSS rule. -->
-	<!--<div id="camera"></div>-->
-	<div id="tuning" class="dontshowthisbecausejavascriptgetsmad">
-		<input id="name" type="text" placeholder="Property">
-		<input id="value" type="text" placeholder="Value">
-		<button id="set">Set</button>
-		<button id="get">Get</button>
-	</div>
-	<!--<div class="center">
-		<svg id="arm-move" width="500" height="500">
-			<rect x="50" y="300" width="250" height="50"></rect>
-		</svg>
-	</div>-->
-	<!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
-		<!-- Clock that shows up in top left -->
-	<article class="dontshowthisbecausejavascriptgetsmad">
-		<!-- Gyroscope -->
-		<svg id="gyro">
-			<circle cx="85" cy="85" r="83"></circle>
-			<circle cx="85" cy="85" r="50"></circle>
-			<rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
-			<text id="gyro-number" x="90" y="115">0º</text>
-		</svg>
-		<!-- Example robot diagram, arm moves when encoder value changes -->
-		<svg id="arm-move" width="500" height="500">
-			<rect x="50" y="300" width="250" height="50"></rect>
-			<rect x="75" y="100" width="75" height="200"></rect>
-			<rect class="arms" x="0" y="240" width="75" height="20"></rect>
-			<rect class="arms" x="0" y="265" width="75" height="20"></rect>
-			<circle cx="99.5" cy="350" r="20"></circle>
-			<circle cx="172" cy="350" r="20"></circle>
-			<circle cx="244.5" cy="350" r="20"></circle>
-			<circle cx="95" cy="130" r="2" style="fill:#FFF"></circle>
-			<circle cx="125" cy="130" r="2" style="fill:#FFF"></circle>
-			<path d="M95 145 Q 110 160, 125 145">
-		</svg>
-	</article>
-	<!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-	<aside class="dontshowthisbecausejavascriptgetsmad">
-		<!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-			The <p> below then says the value. -->
-		<div id="example-section">
-			<button id="example-button">Change example value</button>
-			<p id="example-readout">Value is undefined</p>
-		</div>
-		<!-- Autonomous selector -->
-		<div class="select-container">
-			<select id="auto-select">
-				<option>No auto modes found</option>
-				<!-- This gets populated by JS -->
-			</select>
-		</div>
-		<div>
-			<p>Adjust arm height</p>
-			<input id="arm-position" type="range" min="0" max="1200" value="770">
-		</div>
-	</aside>
-	<div class="autostart center">
-		<label class="item">Auto Delay (ms): <input id="autoDelay" style="width:75px; padding: 1px; padding-left:5px;" type="text" name="autoDelay"></label>
-		<label class="item"><input id="autosubmit" type="submit" name="autoSubmit" value="Set"></label>
-	</div>
-	<div class="startpos center">
-		<label class="item">Left: <input id="left" type="radio" name="pos"></label>
-		<label class="item">Middle: <input id="mid" type="radio" name="pos"></label>
-		<label class="item">Right: <input id="right" type="radio" name="pos"></label>
-		<label class="item"><input id="done" type="submit" name="side" value="Done"></label>
-	</div>
-	<div class="greybox" style="z-index: 123499;">
-		<div id="login">
-			<input id="connect-address" type="text" value="roborio-4738-FRC.local" disabled>
-			<button id="connect" disabled>Connecting</button>
+
+	<div id="notcamera">		
+		<div id="roboKey">
+			<div id="roboDiagram">
+				<div id="driveModeSelect">
+					<input type="radio" id="c" name="driveMode" value="curvature" checked>
+					<label for="c">Curvature</label>
+					
+					<input type="radio" id="a" name="driveMode" value="arcade">
+					<label for="a">Arcade</label>
+					
+					<input type="radio" id="t" name="driveMode" value="tank">
+					<label for="t">Tank</label>
+				</div>
+				<div id="sliders">
+					<div class="rangeHolder">
+						<div class="inputTitle">
+							Linear Cutoff:
+							<div id="linearC" class="numbers"></div>
+						</div>
+						<input id="linearCutoff" type="range" min="0" max="1" step="0.05" disabled>
+					</div>
+					<div class="rangeHolder">
+						<div class="inputTitle">
+							Wide Turn Cutoff:
+							<div id="turnC" class="numbers"></div>
+						</div>
+						<input id="turnCutoff" type="range" min="0" max="1" step="0.05" disabled>
+					</div>
+					<div class="rangeHolder">
+						<div class="inputTitle">
+							Linear Speed:
+							<div id="linearS" class="numbers"></div>
+						</div>
+						<input id="linearSpeed" type="range" min="0" max="1" step="0.05" disabled>
+					</div>
+					<div class="rangeHolder">
+						<div class="inputTitle">
+							Turn Precision:
+							<div id="turnP" class="numbers"></div>
+						</div>
+						<input id="turnPrecision" type="range" min="2" max="6" disabled>
+					</div>
+				</div>
+			</div>
+			<div id="keyBinder">
+				<div id="topbar">
+					Profile:
+					<select id="profile"></select>
+					<div id="newP" class="submitBtn">New Profile</div>
+					<div id="delP" class="submitBtn">Delete Profile</div>
+					<div class="rightAlign">
+						<div id="newJ" class="submitBtn">New Joystick</div>
+						<div id="newB" class="submitBtn">New Button</div>
+						<div id="newK" class="submitBtn">New Keybind</div>
+					</div>
+				</div>
+				<div id="currentConfig"></div>
+			</div>
 		</div>
 	</div>
-	<!--<script type="text/javascript" src="test.js"></script> testing movement-->
-	<script type="text/javascript" src="party.js"></script>
-	<script src="tryIPC.js"></script>
-	<script src="networktables/networktables.js"></script>
-	<script src="ui.js"></script>
+
+	<div id="login">
+		<div id="connect-address"></div>
+		<button id="connect" class="connect-button" disabled>Connecting</button>
+	</div>
+
+	<script type="text/javascript" src="networktables/networktables.js"></script>
+	<script type="text/javascript" src="connection.js"></script>
+	<script type="text/javascript" src="placeholder.js"></script>
+	<script type="text/javascript" src="ui.js"></script>
+	<script type="text/javascript" src="keybind.js"></script>
 </body>
 
 </html>
