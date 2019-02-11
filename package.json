@@ -1,33 +1,15 @@
 {
-  "name": "FRCDashboard",
-  "version": "v2.0.0",
-  "description": "Dashboard for extra robot controls in FRC. Experimental Electron environment.",
+  "name": "frcdashboard",
+  "version": "1.0.0",
+  "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js",
-    "pack": "build --dir",
-    "dist": "build"
+    "test": "console.log(\"Test Passed!\")"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FRCDashboard/FRCDashboard"
-  },
-  "author": "Erik Boesen",
+  "author": "Nicholas264",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/FRCDashboard/FRCDashboard/issues"
-  },
-  "homepage": "http://frcdashboard.github.io",
-  "devDependencies": {
-    "electron": "^1.2.0",
-    "electron-builder": "~15.2.0"
-  },
   "dependencies": {
-    "python3": "0.0.1",
-    "wpilib-nt-client": "^1.1.3"
-  },
-  "build": {
-    "appId": "FRCDashboard",
-    "productName": "FRCDashboard"
+    "electron": "^4.0.1",
+    "wpilib-nt-client": "^1.7.1"
   }
 }
