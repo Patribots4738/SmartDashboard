@@ -2,10 +2,6 @@ var reImage = document.getElementById("refresh");
 const feed = document.getElementById("cameraFeed");
 var feedAddress = "http://10.47.38.2:1181/stream.mjpg";
 
-reImage.onerror = function() {
-	resetImage(false)
-}
-
 function resetImage(add) {
 	if (!add) {
 		feed.removeChild(reImage);
@@ -15,7 +11,9 @@ function resetImage(add) {
 	img.id = "refresh";
 	feed.appendChild(img);
 	reImage = document.getElementById("refresh");
-	reImage.onerror = function() {
+	reImage.onerror = function(error) {
+		error.preventDefault();
+		error.stopPropagation();
 		resetImage(false);
 	}
 }
