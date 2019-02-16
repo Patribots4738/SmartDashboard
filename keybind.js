@@ -70,12 +70,12 @@ configurator.addEventListener("change", loadConfig);
 document.addEventListener("click", profileButtons);
 document.addEventListener("keydown", keylogger);
 
-fs.readFile("keys.json",(err,data)=>{
+fs.readFile(path.join(__dirname,"keys.json"),(err,data)=>{
 	if (err) {
 		console.log(err)
 	} else {
 		keyboardIndex = JSON.parse(data);
-		fs.readFile("keybindings.json",(err,data)=>{
+		fs.readFile(path.join(__dirname,"keybindings.json"),(err,data)=>{
 			if (err) {
 				console.log(err);
 			} else {
@@ -86,7 +86,7 @@ fs.readFile("keys.json",(err,data)=>{
 		});
 	}
 });
-fs.readFile(".default_profile.json",(err,data)=>{
+fs.readFile(path.join(__dirname,".default_profile.json"),(err,data)=>{
 	if (err) {
 		console.log(err);
 	} else {
@@ -175,7 +175,7 @@ function loadConfig(config) {
 }
 
 function updateConfigs() {
-	fs.writeFile("keybindings.json", JSON.stringify(configs,null,4), err=>{
+	fs.writeFile(path.join(__dirname,"keybindings.json"), JSON.stringify(configs,null,4), err=>{
 		if (err) {
 			console.log(err);
 		} else {

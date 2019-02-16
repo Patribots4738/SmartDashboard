@@ -2,20 +2,7 @@ const remote = require("electron").remote;
 const x = document.getElementById('cont');
 const driveMode = document.getElementById("driveModeSelect");
 const fs = require("fs");
-
-/*
-// camera receiving code; nonfunctional
-
-const udp = require("dgram");
-const server = udp.createSocket("udp4");
-
-server.on("message", msg=>{
-	console.log(msg);
-	document.getElementById(cameraFeed.backgroundImage = "url(data:image/jpg;base64,"+msg+")");
-});
-
-server.bind(5001,"172.22.48.28");
-*/
+const path = require("path");
 
 var inputs = ["linearCutoff","turnCutoff","linearSpeed","turnPrecision"];
 var inputsMap = {
@@ -27,7 +14,7 @@ var inputsMap = {
 
 var inputVals = {};
 
-fs.readFile("default_tuners.json",(err,data)=>{
+fs.readFile(path.join(__dirname,"default_tuners.json"),(err,data)=>{
 	if (err) {
 		console.log(err);
 	} else {
@@ -72,7 +59,7 @@ function changeDriveMode(e) {
 }
 
 function saveTuner() {
-	fs.writeFile("default_tuners.json",JSON.stringify(inputVals,null,4),err=>{
+	fs.writeFile(path.join(__dirname,"default_tuners.json"),JSON.stringify(inputVals,null,4),err=>{
 		if (err) {
 			console.log(err);
 		}
@@ -88,9 +75,11 @@ NetworkTables.addKeyListener('/SmartDashboard/enabled', (key, value) => {
 		document.getElementById("notcamera").style.display = "none";
 		document.getElementById("camera").style.width = "100%";
 		document.getElementById("cameraFeed").style.width = "100%";
+		document.getElementById("placeholder").style.display = "none";
 	} else {
 		document.getElementById("notcamera").style.display = "";
 		document.getElementById("camera").style.width = "";
 		document.getElementById("cameraFeed").style.width = "";
+		document.getElementById("placeholder").style.display = "";
 	}
 });
