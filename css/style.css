@@ -81,8 +81,8 @@ body.login #login {
 	align-items: center;
 }
 #cameraFeed > img {
-	width: auto;
-	height: 100%;
+	width: 100%;
+	height: auto;
 	transform: scale(-1,-1);
 }
 #connect {
