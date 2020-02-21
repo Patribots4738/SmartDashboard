@@ -12,7 +12,7 @@ dialog.showErrorBox = function(title, content) {
 };
 
 // The client will try to reconnect after 1 second
-client.setReconnectDelay(1000)
+client.setReconnectDelay(2000)
 
 /** Module to control application life. */
 const app = electron.app;
@@ -34,7 +34,7 @@ let mainWindow;
 let connectedFunc,
 	ready = false;
 
-let clientDataListener = (key, val, valType, mesgType, id, flags) => {
+function clientDataListener (key, val, valType, mesgType, id, flags) {
 	if (val === 'true' || val === 'false') {
 		val = val === 'true';
 	}
@@ -45,24 +45,22 @@ let clientDataListener = (key, val, valType, mesgType, id, flags) => {
 		id,
 		flags
 	});
-};
-function createWindow() {
-	// Attempt to connect to the localhost
-	client.start((con, err) => {
+}
 
-		let connectFunc = () => {
-			console.log('Sending status');
-			mainWindow.webContents.send('connected', con);
-
-			// Listens to the changes coming from the client
-		};
-
-		// If the Window is ready than send the connection status to it
-		if (ready) {
-			connectFunc();
+function connect() {
+	client.start((connected, err)=>{
+		if (!connected||err) {
+			console.log(connected, "Trying to connect...");
+			connect();
+		} else {
+			console.log("Connected!");
 		}
-		connectedFunc = connectFunc;
-	});
+	}, "10.47.38.2", "1735");	
+}
+
+function createWindow() {
+	// Attempt to connect to localhost
+	connect();
 	// When the script starts running in the window set the ready variable
 	ipc.on('ready', (ev, mesg) => {
 		console.log('NetworkTables is ready');
@@ -76,21 +74,6 @@ function createWindow() {
 
 		// Send connection message to the window if if the message is ready
 		if (connectedFunc) connectedFunc();
-	});
-	// When the user chooses the address of the bot than try to connect
-	ipc.on('connect', (ev, address, port) => {
-		address = "10.47.38.2";
-		port = 1735;
-		console.log(`Trying to connect to ${address}` + (port ? ':' + port : ''));
-		let callback = (connected, err) => {
-			console.log('Sending status');
-			mainWindow.webContents.send('connected', connected);
-		};
-		if (port) {
-			client.start(callback, address, port);
-		} else {
-			client.start(callback, address);
-		}
 	});
 	ipc.on('add', (ev, mesg) => {
 		client.Assign(mesg.val, mesg.key, (mesg.flags & 1) === 1);
@@ -106,19 +89,22 @@ function createWindow() {
 		mainWindow = new BrowserWindow({
 		width: screen.workArea.width,
 		backgroundColor: "#FFF",
-		height: 570,//screen.workArea.height,
+		height: screen.workArea.height,
 		// 1366x570 is a good standard height, but you may want to change this to fit your DriverStation's screen better.
 		// It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
 		// The window is closed until the python server is ready
 		show: false,
 		resizable: false,
 		frame: false,
-		icon: __dirname + './resources/icon2.png'
+		icon: __dirname + './resources/icon2.png',
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
 	// Move window to top (left) of screen.
 	mainWindow.setPosition(0, 0);
 	// Load window.
-	mainWindow.loadURL(`file://${__dirname}/index.html`);
+	mainWindow.loadURL(`file://${__dirname}/interface/index.html`);
 	// Once the python server is ready, load window contents.
 	mainWindow.once('ready-to-show', () => {
 		console.log('main window is ready to be shown');

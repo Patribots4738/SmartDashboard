@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>SmashBoard</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/scrollbars.css">
+</head>
+
+<body>
+	<div id="x">✕</div>
+	<div id="app">
+		<div class="horizontalAlign">
+			<div id="camera">
+				<div id="cameraFeed"></div>
+			</div>
+			<div id="notcamera">
+				<div id="container">
+					<div class="horizontalAlign" style="height: unset;">
+						<div id="hasVision" class="enabler"><span>&nbsp;auto-target&nbsp;</span></div>
+						<div id="hasShoot" class="enabler"><span>&nbsp;shoot&nbsp;</span></div>
+					</div>
+					<div id="speed" class="enabler">Slow Mode</div>
+				</div>
+				
+				<div id="autoSelect">
+					<input type="radio" id="c" name="driveMode" value="curvature" checked>
+					<label for="c">Curvature</label>
+					
+					<input type="radio" id="a" name="driveMode" value="arcade">
+					<label for="a">Arcade</label>
+					
+					<input type="radio" id="t" name="driveMode" value="tank">
+					<label for="t">Tank</label>
+				</div>
+			</div>
+		</div>
+		<div id="driverStation">
+			<canvas id="placeholder"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript" src="../interface/networktables.js"></script>
+	<script type="text/javascript" src="../interface/placeholder.js"></script>
+	<script type="text/javascript" src="../interface/ui.js"></script>
+	<script type="text/javascript" src="../interface/refreshImage.js"></script>
+</body>
+
+</html>

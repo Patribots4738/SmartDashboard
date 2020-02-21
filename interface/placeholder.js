@@ -1,16 +1,23 @@
 var cnv = document.getElementById("placeholder");
-var camera = document.getElementById("camera");
+var driverStation = document.getElementById("driverStation");
 
-cnv.width = camera.getBoundingClientRect().width;
-cnv.height = camera.getBoundingClientRect().height;
+cnv.width = driverStation.getBoundingClientRect().width;
+cnv.height = driverStation.getBoundingClientRect().height;
 
 var c = cnv.getContext("2d");
 var w = cnv.width;
 var h = cnv.height;
-var speed = 0.7;
+var speed = 2;
 var lineLen = 175;
-var pointNum = 30; //reduce this number if experiencing lag
+var pointNum = 100; //reduce this number if experiencing lag
 var points = [];
+
+/*let kitten = new Image();
+kitten.onload = function() {
+    draw();
+}*/
+
+//kitten.src = "D:\\SmartDashboard2020\\resources\\eye.png";
 
 function draw() {
 	c.clearRect(0,0,cnv.width, cnv.height);
@@ -24,6 +31,7 @@ function draw() {
 			points.splice(curpoint,1);
 			genRandPoints(1);
 		}
+		//c.drawImage(kitten, point.x, point.y, 100,100);
 		for (var i = points.length - 1; i >= 0; i--) {
 			var sqrt = Math.sqrt(Math.pow((point.x-points[i].x),2)+Math.pow((point.y-points[i].y),2));
 			if(sqrt<=lineLen) {
@@ -39,9 +47,7 @@ function draw() {
 	});
 	requestAnimationFrame(draw);
 }
-
 draw();
-
 function genRandPoints(r) {
 	for (var i = r; i > 0; i--) {
 		switch(Math.floor(Math.random()*6)) {
