@@ -15,24 +15,24 @@
 			<div class="container">
 				<div id="sourceSelect" class="selector">
 					<span>Starting Position:</span>
-					<input type="radio" id="left" name="source" value="l">
+					<input type="radio" id="left" name="source" value="Left">
 					<label for="left">Left</label>
 					
-					<input type="radio" id="center" name="source" value="c">
+					<input type="radio" id="center" name="source" value="Center">
 					<label for="center">Center</label>
 					
-					<input type="radio" id="right" name="source" value="r">
+					<input type="radio" id="right" name="source" value="Right">
 					<label for="right">Right</label>
 				</div>
 				<div id="destSelect" class="selector">
 					<span>Ending Position:</span>
-					<input type="radio" id="toleft" name="destinations" value="l">
+					<input type="radio" id="toleft" name="destinations" value="Left">
 					<label for="toleft">Left</label>
 					
-					<input type="radio" id="tocenter" name="destinations" value="c">
+					<input type="radio" id="tocenter" name="destinations" value="Center">
 					<label for="tocenter">Center</label>
 					
-					<input type="radio" id="toright" name="destinations" value="r">
+					<input type="radio" id="toright" name="destinations" value="Right">
 					<label for="toright">Right</label>
 				</div>
 			</div>
@@ -43,24 +43,25 @@
 				<div id="showAuto" class="unconfirmed">Select Auto</div>
 			</div>
 			<div id="notcamera">
+				<canvas id="placeholder"></canvas>
 				<div id="leftLevel" class="vertContain">
 					<div class="indicator">
+						<div id="fireText" class="text">Firing</div>
 						<div id="hasFire" class="enabler"></div>
-						<div id="fireText" class="text">firing</div>
 					</div>
 					<div class="indicator">
+						<div id="shootText" class="text">Ready to shoot</div>
 						<div id="hasShoot" class="enabler"></div>
-						<div id="shootText" class="text">ready to shoot</div>
 					</div>
 					<div class="indicator">
+						<div id="visionText" class="text">Ready to aim</div>
 						<div id="hasVision" class="enabler"></div>
-						<div id="visionText" class="text">ready to aim</div>
 					</div>
 				</div>
 				<div id="rightSlow" class="vertContain">
 					<div id="slowMode">
-						<div id="hasSlow" class="enabler"></div>
 						<div id="slowText" class="text">mode</div>
+						<div id="hasSlow" class="enabler"></div>
 					</div>
 				</div>
 				<!--<div id="container">
@@ -99,7 +100,7 @@
 			</div>
 		</div>
 		<div id="driverStation">
-			<canvas id="placeholder"></canvas>
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="../interface/networktables.js"></script>

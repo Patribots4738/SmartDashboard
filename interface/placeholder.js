@@ -1,23 +1,39 @@
 var cnv = document.getElementById("placeholder");
-var driverStation = document.getElementById("driverStation");
+var container = document.getElementById("notcamera");
 
-cnv.width = driverStation.getBoundingClientRect().width;
-cnv.height = driverStation.getBoundingClientRect().height;
+cnv.width = container.getBoundingClientRect().width;
+cnv.height = container.getBoundingClientRect().height;
 
 var c = cnv.getContext("2d");
 var w = cnv.width;
 var h = cnv.height;
-var speed = 2;
-var lineLen = 175;
-var pointNum = 100; //reduce this number if experiencing lag
+var speed = 1;
+var lineLen = 150;
+var pointNum = 80; //reduce this number if experiencing lag
 var points = [];
-
+var offscreen = -50;
+var dim = {
+	x: {
+		min: offscreen,
+		max: container.offsetWidth - offscreen
+	},
+	y: {
+		min: offscreen,
+		max: container.offsetHeight - offscreen
+	}
+}
 /*let kitten = new Image();
 kitten.onload = function() {
     draw();
 }*/
 
 //kitten.src = "D:\\SmartDashboard2020\\resources\\eye.png";
+window.addEventListener("resize", e=>{
+	cnv.width = container.offsetWidth;
+	cnv.height = container.offsetHeight;
+	dim.x.max = container.offsetWidth - offscreen;
+	dim.y.max = container.offsetHeight - offscreen;
+});
 
 function draw() {
 	c.clearRect(0,0,cnv.width, cnv.height);
@@ -27,7 +43,7 @@ function draw() {
 	points.forEach(point=>{
 		point.x+=point.dx;
 		point.y+=point.dy;
-		if (point.x<0||point.y<0||point.x>w||point.y>h) {
+		if (point.x<dim.x.min||point.y<dim.y.min||point.x>dim.x.max||point.y>dim.y.max) {
 			points.splice(curpoint,1);
 			genRandPoints(1);
 		}
@@ -49,58 +65,20 @@ function draw() {
 }
 draw();
 function genRandPoints(r) {
-	for (var i = r; i > 0; i--) {
-		switch(Math.floor(Math.random()*6)) {
-			case 0:
-				points.push({
-					x: 0,
-					y: Math.floor(Math.random()*h)+1,
-					dx: Math.random()*speed,
-					dy: Math.random()*speed*(Math.floor(Math.random()*2)=== 1 ? 1 : -1)
-				});
-			break;
-			case 1:
-				points.push({
-					x: w,
-					y: Math.floor(Math.random()*h)+1,
-					dx: -1*(Math.random()*speed),
-					dy: Math.random()*speed*(Math.floor(Math.random()*2)=== 1 ? 1 : -1)
-				});
-			break;
-			case 2:
-				points.push({
-					x: Math.floor(Math.random()*w)+1,
-					y: 0,
-					dx: Math.random()*speed*(Math.floor(Math.random()*2) === 1 ? 1 : -1),
-					dy: Math.random()*speed
-				});
-			break;
-			case 3:
-				points.push({
-					x: Math.floor(Math.random()*w)+1,
-					y: h,
-					dx: Math.random()*speed*(Math.floor(Math.random()*2) === 1 ? 1 : -1),
-					dy: -1*(Math.random()*speed)
-				});
-			break;
-			default:
-				if (Math.floor(Math.random()*2)===1) {
-					points.push({
-						x: Math.floor(Math.random()*w)+1,
-						y: 0,
-						dx: Math.random()*speed*(Math.floor(Math.random()*2) === 1 ? 1 : -1),
-						dy: Math.random()*speed
-					});
-				} else {
-					points.push({
-						x: Math.floor(Math.random()*w)+1,
-						y: h,
-						dx: Math.random()*speed*(Math.floor(Math.random()*2) === 1 ? 1 : -1),
-						dy: -1*(Math.random()*speed)
-					});
-				}
-			break;
+	for (var i = 0; i < r; i++) {
+		let constAxis = Math.random() > 0.5;
+		console.log(dim.y.max,dim.y.min)
+		let x = constAxis ? (Math.random() * dim.x.max) + 1 :
+			(Math.random() > 0.5 ? dim.x.max : dim.x.min);
+		let y = constAxis ? (Math.random() > 0.5 ? dim.y.max : dim.y.min) :
+			(Math.random() * dim.y.max) + 1;
+		let point = {
+			x: x,
+			y: y,
+			dx: x > 0 ? Math.random() * -speed : Math.random() * speed,
+			dy: y > 0 ? Math.random() * -speed : Math.random() * speed
 		}
+		points.push(point);
 	}
 }
 genRandPoints(pointNum);

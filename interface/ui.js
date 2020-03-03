@@ -3,18 +3,9 @@ const fs = require("fs");
 const path = require("path");
 
 const components = {
-	vision: {
-		box: document.getElementById("hasVision"),
-		text: document.getElementById("visionText")
-	},
-	shoot: {
-		box: document.getElementById("hasShoot"),
-		text: document.getElementById("shootText")
-	},
-	fire: {
-		box: document.getElementById("hasFire"),
-		text: document.getElementById("fireText")
-	},
+	vision: document.getElementById("hasVision"),
+	shoot: document.getElementById("hasShoot"),
+	fire: document.getElementById("hasFire"),
 	auto: {
 		menu: document.getElementById("autoMenu"),
 		source: document.getElementById("sourceSelect"),
@@ -27,6 +18,10 @@ const components = {
 	}
 };
 
+const cameraValues = {
+	forward: "http://10.47.38.2:1181/stream.mjpg",
+	reverse: "http://10.47.38.2:1182/stream.mjpg"
+};
 var prevValues = {};
 
 const listeners = {
@@ -51,15 +46,29 @@ const listeners = {
 			components.speed.text.classList.remove("fast");
 			components.speed.text.classList.add("slow");
 		}
+	},
+	enabled: value => {
+		if (value) {
+			components.auto.menu.style.display = "none";
+			components.auto.button.style.display = "none";
+		} else {
+			components.auto.button.style.display = "";
+		}
+	},
+	reversed: value => {
+		if (value) {
+			feedAddress = cameraValues.reverse;
+		} else {
+			feedAddress = cameraValues.forward;
+		}
+		resetImage();
 	}
 };
 function changeValue(target, value) {
 	if (value) {
-		target.box.classList.add("enabled");
-		target.text.classList.add("enabled");
+		target.classList.add("enabled");
 	} else {
-		target.box.classList.remove("enabled");
-		target.text.classList.remove("enabled");
+		target.classList.remove("enabled");
 	}
 }
 const keyListeners = Object.keys(listeners);
@@ -85,7 +94,7 @@ function changeAutoMode() {
 			finalValue[1] = dest.children[i].value;
 		}
 	}
-	NetworkTables.putValue("/SmartDashboard/autoPath", finalValue);
+	NetworkTables.putValue("/SmartDashboard/autoPath", finalValue[0]+"-"+finalValue[1]);
 }
 
 addEventListener('error',(ev)=>{
@@ -97,7 +106,7 @@ components.auto.button.addEventListener("click", e=>{
 	components.auto.button.classList.add("confirmed");
 });
 components.auto.menu.addEventListener("click", e=>{
-	if(e.target !== e.currentTarget) {
+	if(e.target !== e.currentTarget && e.target.getAttribute("class") != "container") {
 		return;
 	}
 	components.auto.menu.style.display = "none";

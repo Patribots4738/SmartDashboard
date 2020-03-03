@@ -24,7 +24,7 @@ Color Scheme:
 	--graey: #CACFD6;
 	--unenthused-blue: #506075;
 	--black-blue: #0D0221;
-	--transparent-blue: rgba(40,50,100,0.7);
+	--transparent-blue: rgba(40,50,100,0.8);
 	--selected-blue: #6eaae2;
 	--hover-blue: #0078bd;
 }
@@ -121,7 +121,7 @@ button {
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: row;
-	background: linear-gradient(-50deg, var(--black-blue) 30%, var(--unenthused-blue) 30.01%, var(--unenthused-blue) 40%, var(--lake-blue) 40.01%, var(--lake-blue) 41%, var(--black-blue) 41.01%);
+	/*background: linear-gradient(-50deg, var(--black-blue) 30%, var(--unenthused-blue) 30.01%, var(--unenthused-blue) 40%, var(--lake-blue) 40.01%, var(--lake-blue) 41%, var(--black-blue) 41.01%);*/
 }
 .vertContain {
 	height: 100%;
@@ -202,6 +202,10 @@ div.fast:before {
 div.slow:before {
 	content: "Slow\00a0" !important;
 }
+#placeholder {
+	position: absolute;
+	z-index: -1;
+}
 #slowMode{
 	height: calc(calc(calc(calc(100% / 3) - 20px) * 3) + 30px);
 	width: calc(100% - 15px);
@@ -216,14 +220,8 @@ div.slow:before {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 25pt;
+	font-size: 1.5em;
 	height: 100%;
-}
-.text:before {
-	content: "Not\00a0";
-}
-.text.enabled:before {
-	content: "Is\00a0";
 }
 #driverStation {
 	width: 100%;
