@@ -1,3 +1,42 @@
+/*
+Color Scheme:
+#132333 blue-black;
+#0A2239 cobalt;
+#548BBF sky-blue;
+#1C6BB5 lake-blue;
+#165087 ocean-blue;
+#A0B7D8 ice-white;
+#A0B7D8 snow-blue;
+#CACFD6 graey;
+#506075 unenthused-blue;
+#182333 black-blue;
+
+
+*/
+:root {
+	--blue-black: #132333;
+	--cobalt: #0A2239;
+	--sky-blue: #548BBF;
+	--lake-blue: #1C6BB5;
+	--ocean-blue: #165087;
+	--ice-white: #E5E7E6;
+	--snow-blue: #A0B7D8;
+	--graey: #CACFD6;
+	--unenthused-blue: #506075;
+	--black-blue: #0D0221;
+	--transparent-blue: rgba(40,50,100,0.7);
+	--selected-blue: #6eaae2;
+	--hover-blue: #0078bd;
+}
+
+@keyframes pulse {
+	from {
+		box-shadow: 0 0 0 0 rgba(255,0,0,0.7);
+	}
+	to {
+		box-shadow: 0 0 0 40px rgba(255,0,0,0);
+	}
+}
 html, body {
 	width: 100%;
 	height: 100%;
@@ -8,9 +47,9 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	color: white;
+	color: var(--ice-white);
 	overflow: hidden;
-	background: #222;
+	background: black;
 	padding: 0;
 	margin: 0;
 }
@@ -18,51 +57,27 @@ body {
 	border: 1px solid goldenrod;
 }*/
 button {
-	color: white;
-	background: #444;
+	color: var(--ice-white);
+	background: var(--snow-blue);
 	border: none;
-	font-size: 14px;
-	padding: 6px 8px;
+	font-size: 14pt;
+	padding: 20px;
 	cursor: pointer;
 	outline: 0;
-}
-#login {
-	position: fixed;
-	display: none;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.7);
-	z-index: 100;
-}
-body.login #login {
-	display: flex;
-}
-#login :disabled {
-	opacity: 0.6;
-}
-#login > * {
-	height: 40px;
-}
-#login > button {
-	margin-left: 5px;
+	margin: 5px;
 }
 #x {
 	display: block;
 	position: fixed;
-	right: 5px;
+	left: 5px;
+	top: 5px;
 	width: 40px;
 	height: 23px;
-	color: white;
-	background-color: rgba(255,0,0,0.3);
+	color: var(--ice-white);
+	background-color: rgba(255,0,0,0.6);
 	text-align: center;
 	cursor: pointer;
 	padding: 0px;
-	top: 5px;
 	z-index: 500;
 	border-radius: 3px;
 }
@@ -85,10 +100,6 @@ body.login #login {
 	width: auto;
 	height: 100%;
 }
-#connect {
-	height: 50px;
-	font-size: 1.1em;
-}
 #app {
 	width: 100%;
 	height: 100%;
@@ -100,7 +111,8 @@ body.login #login {
 	width: 50%;
 	height: 100%;
 	overflow: hidden;
-	background-color: #333;
+	background-color: var(--blue-black);
+	position: relative;
 }
 #notcamera {
 	width: 50%;
@@ -108,85 +120,187 @@ body.login #login {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	flex-direction: row;
+	background: linear-gradient(-50deg, var(--black-blue) 30%, var(--unenthused-blue) 30.01%, var(--unenthused-blue) 40%, var(--lake-blue) 40.01%, var(--lake-blue) 41%, var(--black-blue) 41.01%);
+}
+.vertContain {
+	height: 100%;
+	width: 50%;
+	display: flex;
 	flex-direction: column;
+}
+.disabled {
+	background: red !important;
+}
+#rightSlow {
+	margin: 0;
+}
+#leftLevel {
+	margin: 15px;
+}
+.vertContain > div:first-child {
+	margin-top: 15px;
+}
+.indicator {
+	height: calc(calc(100% / 3) - 20px);
+	margin-bottom: 15px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	background-color: var(--transparent-blue);
+}
+#showAuto {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	background: var(--transparent-blue);
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16pt;
+	text-align: center;
+	z-index: 100;
+	cursor: pointer;
+}
+#showAuto:hover {
+	background-color: rgba(50,65,110,0.7); 
+}
+#showAuto.unconfirmed {
+	animation: 1s linear infinite both pulse;
+}
+#showAuto.confirmed {
+	opacity: 0.5;
+}
+#autoMenu {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	z-index: 101;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.container {
+	width: 60%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+#slowText:before {
+	content: "No\00a0";
+}
+div.fast:before {
+	content: "Fast\00a0" !important;
+}
+div.slow:before {
+	content: "Slow\00a0" !important;
+}
+#slowMode{
+	height: calc(calc(calc(calc(100% / 3) - 20px) * 3) + 30px);
+	width: calc(100% - 15px);
+	background: var(--transparent-blue);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.text {
+	width: -webkit-fill-available;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 25pt;
+	height: 100%;
+}
+.text:before {
+	content: "Not\00a0";
+}
+.text.enabled:before {
+	content: "Is\00a0";
 }
 #driverStation {
 	width: 100%;
 	height: 25%;
 }
-svg {
-	border:1px solid black;
-	position: absolute;
-}
 #container {
 	width: 100%;
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	margin-top: 5px;
 	height: -webkit-fill-available;
 }
 #speed {
-	padding: 0;
-	padding-top: 40px;
-	padding-bottom: 40px;
-	width: calc(100% - 30px);
+	width: calc(100% - 110px);
 }
 .enabler {
-	padding: 40px;
-	background-color: #AAAAAA;
-	margin: 15px;
+	background-color: hsla(200, 50%, 50%,0.3);
 	font-size: 16pt;
-	width: 50%;
+	height: 100%;
+	width: 40%;
 	text-align: center;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 10px;
 }
-.enabler > span:before {
-	content: "Don't";
-}
-.enabler > span:after {
-	content: "yet";
-}
-div.enabled {
+div.enabled.enabler {
 	background-color: green;
 }
-div.disabled {
-	background-color: red;
-}
-div.enabled > span:before {
-	content: "You can";
-}
-div.disabled > span:before {
-	content: "Don't";
-}
-div.disabled > span:after {
-	content: "";
-}
-div.enabled > span:after {
-	content: "";
-}
-#autoSelect {
-	width: 100%;
-	height: -webkit-fill-available;
-	background-color: #2A2A2A;
+.selector {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	flex-wrap: wrap;
+	margin: 30px;
+	font-size: 16pt;
+	width: -webkit-fill-available;
+	padding: 10px;
+	background: var(--lake-blue);
 }
-input[type="radio"] {
-	display: none;
+
+.selector > input{
+	position: fixed;
+	opacity: 0;
+	top: -20px;
+	left: -20px;
 }
-label {
-	padding: 20px
-	width: 25%;
-	border-radius: 10px;
-	background: red;
+.selector > span {
+	margin: 10px;
+	align-self: flex-start;
+}
+input[type="radio"]:checked+label {
+	transition: background-color 0.1s;
+	background-color: var(--selected-blue) !important;
+}
+
+.selector > label {
 	display: block;
+	transition: background-color 0.1s;
+	background-color: var(--ocean-blue);
+	padding: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px; 
+	min-width: 75%;
+	margin-bottom: 10px;
+	cursor: pointer;
+	text-align: center;
 }
+
+.selector > label:hover {
+	background-color: var(--hover-blue);
+	transition: background-color 0.1s;
+	box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
 #setter {
 	padding: 10px;
 	background-color: #606060;
@@ -218,13 +332,13 @@ label {
 }
 select > option {
 	background-color: #222;
-	color:white;
+	color:var(--ice-white);
 	outline: none;
 }
 select {
 	outline: none;
 	border: none;
-	color: white;
+	color: var(--ice-white);
 	background-color: transparent;
 	background-color: #222;
 	font-size: 0.9em;
@@ -251,7 +365,6 @@ select {
 }
 #currentConfig {
 	width: 100%;
-	overflow-y: scroll;
 	height: 100%;
 }
 #currentConfig > table{
@@ -377,7 +490,7 @@ tbody tr:nth-child(odd) {
 }
 input[type="text"] {
 	background-color: #222;
-	color: white;
+	color: var(--ice-white);
 	padding: 6px;
 	outline: none;
 	border: none;

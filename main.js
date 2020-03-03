@@ -53,6 +53,7 @@ function connect() {
 			console.log(connected, "Trying to connect...");
 			connect();
 		} else {
+			mainWindow.webContents.send("reconnectCamera");
 			console.log("Connected!");
 		}
 	}, "10.47.38.2", "1735");	

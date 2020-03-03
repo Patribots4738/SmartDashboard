@@ -3,40 +3,121 @@ const fs = require("fs");
 const path = require("path");
 
 const components = {
-	vision: document.getElementById("hasVision"),
-	shoot: document.getElementById("hasShoot")
+	vision: {
+		box: document.getElementById("hasVision"),
+		text: document.getElementById("visionText")
+	},
+	shoot: {
+		box: document.getElementById("hasShoot"),
+		text: document.getElementById("shootText")
+	},
+	fire: {
+		box: document.getElementById("hasFire"),
+		text: document.getElementById("fireText")
+	},
+	auto: {
+		menu: document.getElementById("autoMenu"),
+		source: document.getElementById("sourceSelect"),
+		dest: document.getElementById("destSelect"),
+		button: document.getElementById("showAuto")
+	},
+	speed: {
+		box: document.getElementById("hasSlow"),
+		text: document.getElementById("slowText")
+	}
 };
 
-document.getElementById('x').addEventListener("click", close);
+var prevValues = {};
 
-function changeAutoMode(e) {
-	for (var i = 0; i < driveMode.children.length; i++) {
-		if (driveMode.children[i].checked==true) {
-			console.log(driveMode.children[i].value);
-			NetworkTables.putValue("/SmartDashboard/autoMode",driveMode.children[i].value);
+const listeners = {
+	aligned: value => {
+		changeValue(components.vision, value);
+	},
+	readyToFire: value => {
+		changeValue(components.shoot, value);
+	},
+	firing: value => {
+		changeValue(components.fire, value);
+	},
+	fastSlow: value => {
+		if (value) {
+			components.speed.box.classList.remove("disabled");
+			components.speed.box.classList.add("enabled");
+			components.speed.text.classList.add("fast");
+			components.speed.text.classList.remove("slow");
+		} else {
+			components.speed.box.classList.remove("enabled");
+			components.speed.box.classList.add("disabled");
+			components.speed.text.classList.remove("fast");
+			components.speed.text.classList.add("slow");
 		}
 	}
+};
+function changeValue(target, value) {
+	if (value) {
+		target.box.classList.add("enabled");
+		target.text.classList.add("enabled");
+	} else {
+		target.box.classList.remove("enabled");
+		target.text.classList.remove("enabled");
+	}
+}
+const keyListeners = Object.keys(listeners);
+
+document.getElementById("x").addEventListener("click", close);
+document.querySelectorAll("label").forEach(label=>{
+	label.addEventListener("click", function() {
+		setTimeout(function() {
+			changeAutoMode();
+		}, 10);
+	});
+});
+
+function changeAutoMode() {
+	let source = components.auto.source;
+	let dest = components.auto.dest;
+	let finalValue = ["", ""];
+	for (var i = 0; i < source.children.length; i++) {
+		if (source.children[i].checked) {
+			finalValue[0] = source.children[i].value;
+		}
+		if (dest.children[i].checked) {
+			finalValue[1] = dest.children[i].value;
+		}
+	}
+	NetworkTables.putValue("/SmartDashboard/autoPath", finalValue);
 }
 
 addEventListener('error',(ev)=>{
 	ipc.send('windowError',{mesg:ev.message,file:ev.filename,lineNumber:ev.lineno})
 });
-
-NetworkTables.addKeyListener("/SmartDashboard/autoPaths", (key, value) => {
-	
+components.auto.button.addEventListener("click", e=>{
+	components.auto.menu.style.display = "flex";
+	components.auto.button.classList.remove("unconfirmed");
+	components.auto.button.classList.add("confirmed");
+});
+components.auto.menu.addEventListener("click", e=>{
+	if(e.target !== e.currentTarget) {
+		return;
+	}
+	components.auto.menu.style.display = "none";
 });
 
-NetworkTables.addKeyListener("/SmartDashboard/aligned", (key, value) => {
-	components.vision.classList.remove("enabled", "disabled");
-	components.vision.classList.add(value == "true" ? "enabled" : "disabled");
+function eventLoop() {
+	keyListeners.forEach(key => {
+		let value = NetworkTables.getValue("/SmartDashboard/"+key);
+		if (prevValues[key] != value) {
+			listeners[key](value);
+		}
+		prevValues[key] = value;
+	});
+}
+
+ipc.on("reconnectCamera", ()=>{
+	resetImage(false);
 });
 
-NetworkTables.addKeyListener("/SmartDashboard/readyToFire", (key, value) => {
-	components.shoot.classList.remove("enabled", "disabled");
-	components.shoot.classList.add(value == "true" ? "enabled" : "disabled");
-});
-
-
+setInterval(eventLoop,20);
 // debug
 
 // Importing this adds a right-click menu with 'Inspect Element' option

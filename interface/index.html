@@ -11,29 +11,91 @@
 <body>
 	<div id="x">✕</div>
 	<div id="app">
+		<div id="autoMenu" style="display: none;">
+			<div class="container">
+				<div id="sourceSelect" class="selector">
+					<span>Starting Position:</span>
+					<input type="radio" id="left" name="source" value="l">
+					<label for="left">Left</label>
+					
+					<input type="radio" id="center" name="source" value="c">
+					<label for="center">Center</label>
+					
+					<input type="radio" id="right" name="source" value="r">
+					<label for="right">Right</label>
+				</div>
+				<div id="destSelect" class="selector">
+					<span>Ending Position:</span>
+					<input type="radio" id="toleft" name="destinations" value="l">
+					<label for="toleft">Left</label>
+					
+					<input type="radio" id="tocenter" name="destinations" value="c">
+					<label for="tocenter">Center</label>
+					
+					<input type="radio" id="toright" name="destinations" value="r">
+					<label for="toright">Right</label>
+				</div>
+			</div>
+		</div>
 		<div class="horizontalAlign">
 			<div id="camera">
 				<div id="cameraFeed"></div>
+				<div id="showAuto" class="unconfirmed">Select Auto</div>
 			</div>
 			<div id="notcamera">
-				<div id="container">
-					<div class="horizontalAlign" style="height: unset;">
-						<div id="hasVision" class="enabler"><span>&nbsp;auto-target&nbsp;</span></div>
-						<div id="hasShoot" class="enabler"><span>&nbsp;shoot&nbsp;</span></div>
+				<div id="leftLevel" class="vertContain">
+					<div class="indicator">
+						<div id="hasFire" class="enabler"></div>
+						<div id="fireText" class="text">firing</div>
 					</div>
-					<div id="speed" class="enabler">Slow Mode</div>
+					<div class="indicator">
+						<div id="hasShoot" class="enabler"></div>
+						<div id="shootText" class="text">ready to shoot</div>
+					</div>
+					<div class="indicator">
+						<div id="hasVision" class="enabler"></div>
+						<div id="visionText" class="text">ready to aim</div>
+					</div>
 				</div>
-				
-				<div id="autoSelect">
-					<input type="radio" id="c" name="driveMode" value="curvature" checked>
-					<label for="c">Curvature</label>
-					
-					<input type="radio" id="a" name="driveMode" value="arcade">
-					<label for="a">Arcade</label>
-					
-					<input type="radio" id="t" name="driveMode" value="tank">
-					<label for="t">Tank</label>
+				<div id="rightSlow" class="vertContain">
+					<div id="slowMode">
+						<div id="hasSlow" class="enabler"></div>
+						<div id="slowText" class="text">mode</div>
+					</div>
 				</div>
+				<!--<div id="container">
+					<div class="horizontalAlign" style="height: unset;width:calc(100% - 30px);">
+						<div id="hasVision" class="enabler enabled"><span>&nbsp;auto-target&nbsp;</span></div>
+						<div id="hasShoot" class="enabler disabled"><span>&nbsp;shoot&nbsp;</span></div>
+					</div>
+					<div id="speed" class="enabler disabled">Slow Mode</div>
+				</div>
+				<div class="horizontalAlign" style="height: unset;">
+					<div id="sourceSelect" class="selector">
+						<span>Starting Position:</span>
+						<input type="radio" id="left" name="source" value="l">
+						<label for="left">Left</label>
+						
+						<input type="radio" id="center" name="source" value="c">
+						<label for="center">Center</label>
+						
+						<input type="radio" id="right" name="source" value="r">
+						<label for="right">Right</label>
+					</div>
+					<div id="destSelect" class="selector">
+						<span>Ending Position:</span>
+						<input type="radio" id="toleft" name="destinations" value="l">
+						<label for="toleft">Left</label>
+						
+						<input type="radio" id="tocenter" name="destinations" value="c">
+						<label for="tocenter">Center</label>
+						
+						<input type="radio" id="toright" name="destinations" value="r">
+						<label for="toright">Right</label>
+					</div>
+				</div>
+				<div id="submitAuto" class="submitButton">Submit Auto Path</div>-->
+
 			</div>
 		</div>
 		<div id="driverStation">

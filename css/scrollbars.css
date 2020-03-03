@@ -1,13 +1,16 @@
 ::-webkit-scrollbar {
-	width: 12px;
+	width: 5px;
+	margin-right: 5px;
 }
 ::-webkit-scrollbar-track {
-	border-radius: 10px;
+	border-radius: 5px;
 	background-color: #373737;
+	margin-right: 5px;
 }
 ::-webkit-scrollbar-thumb {
 	background-color: #AAAAAA;
-	border-radius: 10px;
+	border-radius: 5px;
+	margin-right: 5px;
 }
 #sliders {
 	display: flex;
