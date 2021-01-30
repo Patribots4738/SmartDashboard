@@ -7,8 +7,8 @@ const client = new wpilib_NT.Client();
 const dialog = electron.dialog;
 
 // Disable error dialogs by overriding
-dialog.showErrorBox = function(title, content) {
-    console.log(`${title}\n${content}`);
+dialog.showErrorBox = function (title: string, content: string) {
+	console.log(`${title}\n${content}`);
 };
 
 // The client will try to reconnect after 1 second
@@ -29,12 +29,12 @@ const ipc = electron.ipcMain;
  * The Main Window of the Program
  * @type {Electron.BrowserWindow}
  * */
-let mainWindow;
+let mainWindow: any;
 
-let connectedFunc,
+let connectedFunc: any,
 	ready = false;
 
-let clientDataListener = (key, val, valType, mesgType, id, flags) => {
+let clientDataListener = (key: any, val: any, valType: any, mesgType: any, id: any, flags: any) => {
 	if (val === 'true' || val === 'false') {
 		val = val === 'true';
 	}
@@ -48,7 +48,7 @@ let clientDataListener = (key, val, valType, mesgType, id, flags) => {
 };
 function createWindow() {
 	// Attempt to connect to the localhost
-	client.start((con, err) => {
+	client.start((con: any, err: any) => {
 
 		let connectFunc = () => {
 			console.log('Sending status');
@@ -64,7 +64,7 @@ function createWindow() {
 		connectedFunc = connectFunc;
 	});
 	// When the script starts running in the window set the ready variable
-	ipc.on('ready', (ev, mesg) => {
+	ipc.on('ready', (ev: any, mesg: any) => {
 		console.log('NetworkTables is ready');
 		ready = mainWindow != null;
 
@@ -78,11 +78,11 @@ function createWindow() {
 		if (connectedFunc) connectedFunc();
 	});
 	// When the user chooses the address of the bot than try to connect
-	ipc.on('connect', (ev, address, port) => {
+	ipc.on('connect', (ev: any, address: string, port: number) => {
 		address = "10.47.38.2";
 		port = 1735;
 		console.log(`Trying to connect to ${address}` + (port ? ':' + port : ''));
-		let callback = (connected, err) => {
+		let callback = (connected: any, err: any) => {
 			console.log('Sending status');
 			mainWindow.webContents.send('connected', connected);
 		};
@@ -92,18 +92,18 @@ function createWindow() {
 			client.start(callback, address);
 		}
 	});
-	ipc.on('add', (ev, mesg) => {
+	ipc.on('add', (ev: any, mesg: any) => {
 		client.Assign(mesg.val, mesg.key, (mesg.flags & 1) === 1);
 	});
-	ipc.on('update', (ev, mesg) => {
+	ipc.on('update', (ev: any, mesg: any) => {
 		client.Update(mesg.id, mesg.val);
 	});
-	ipc.on('windowError', (ev, error) => {
+	ipc.on('windowError', (ev: any, error: any) => {
 		console.log(error);
 	});
 	// Create the browser window.
 	let screen = electron.screen.getPrimaryDisplay();
-		mainWindow = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		width: screen.workArea.width,
 		backgroundColor: "#FFF",
 		height: 570,//screen.workArea.height,
