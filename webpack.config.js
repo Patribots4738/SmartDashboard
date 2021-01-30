@@ -5,9 +5,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const fs = require("fs");
 
 module.exports = {
-	entry: loadEntries("./src/components"),
+	entry: "./src/app/main.tsx",
 	output: {
-		path: path.resolve(__dirname, "build"),
+		path: path.resolve(__dirname, "build/app"),
 		filename: "./js/[name].js"
 	},
 	module: {
@@ -28,11 +28,11 @@ module.exports = {
 	resolve: {
 		extensions: [".tsx", ".ts", ".js"],
 	},
-	mode: "development",
+	mode: "production",
 	plugins: [
 		new CopyPlugin({
 			patterns: [{
-					from: "./src",
+					from: "./src/app",
 					to: ".",
 					globOptions: {
 						ignore: ["**/*.tsx", "**/*.ts"]
@@ -40,10 +40,10 @@ module.exports = {
 					noErrorOnMissing: true
 				}
 			],
-		})/*,
+		}),
 		new LicensePlugin({
 			outputFilename: 'thirdPartyNotice.json'
-		})*/
+		})
 	],
 	optimization: {
 		minimize: true,
@@ -63,11 +63,13 @@ module.exports = {
 function loadEntries(dir) {
 	let files = fs.readdirSync(path.join(__dirname, dir));
 	let entries = {};
+	console.log(files);
 	files.forEach(file => {
 		let name = file.match(/^(.*)\.tsx$/);
 		if (name) {
 			entries[name[1]] = path.join(__dirname, dir, file);
 		}
 	});
+	console.log(entries);
 	return entries;
 }
