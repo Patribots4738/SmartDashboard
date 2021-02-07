@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const fs = require("fs");
 
 module.exports = {
+	target: "electron-renderer",
 	entry: "./src/app/main.tsx",
 	output: {
 		path: path.resolve(__dirname, "build/app"),
