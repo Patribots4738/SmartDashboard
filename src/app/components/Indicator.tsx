@@ -14,7 +14,7 @@ export default class Indicator extends React.Component<IndicatorProps, Indicator
 	constructor(props: IndicatorProps) {
 		super(props);
 		this.state = {
-			value: null
+			value: "\u2588"
 		};
 		NetworkTables.addKeyListener(this.props.ntTableKey, this.updateDisplay, true);
 	}
@@ -22,8 +22,11 @@ export default class Indicator extends React.Component<IndicatorProps, Indicator
 		this.setState({value: value});
 	}
 	public render() {
-		return <div className="circularIndicator">
-			<span>{this.state.value + this.props.units}</span>
+		return <div className="circleContainer">
+			<div className="circleIndicator">
+				<span className="gradient">{this.state.value + this.props.units}</span>
+			</div>
+			<div className="circleTitle gradient">{this.props.title}</div>
 		</div>;
 	}
 }
