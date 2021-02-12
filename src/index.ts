@@ -78,20 +78,8 @@ function createWindow() {
 		if (connectedFunc) connectedFunc();
 	});
 	// When the user chooses the address of the bot than try to connect
-	ipc.on('connect', (ev: any, address: string, port: number) => {
-		address = "10.47.38.2";
-		port = 1735;
-		console.log(`Trying to connect to ${address}` + (port ? ':' + port : ''));
-		let callback = (connected: any, err: any) => {
-			console.log('Sending status');
-			mainWindow.webContents.send('connected', connected);
-		};
-		if (port) {
-			client.start(callback, address, port);
-		} else {
-			client.start(callback, address);
-		}
-	});
+	attemptConnection();
+
 	ipc.on('add', (ev: any, mesg: any) => {
 		client.Assign(mesg.val, mesg.key, (mesg.flags & 1) === 1);
 	});
@@ -173,3 +161,17 @@ app.on('activate', function () {
 	// dock icon is clicked and there are no other windows open.
 	if (mainWindow == null) createWindow();
 });
+
+function attemptConnection() {
+	let address = "10.47.38.2";
+	let port = 1735;
+	console.log(`Trying to connect to ${address}` + (port ? ':' + port : ''));
+	client.start((connected: any, err: any) => {
+		if (!err) {
+			console.log('Successfully connected...');
+			mainWindow.webContents.send('connected', connected);
+		} else {
+			setTimeout(()=>{attemptConnection()}, 1000);
+		}
+	}, address, port);
+}
