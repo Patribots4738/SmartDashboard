@@ -87,7 +87,7 @@ export default ((): NetworkTables => {
 				}
 			}
 		},
-		addKeyListener(key: any, f: any, immediateNotify: boolean) {
+		addKeyListener(key: string, f: any, immediateNotify: boolean) {
 			if (typeof key !== 'string' || typeof f !== 'function') return new Error('Valid Arguments are (string, function)')
 
 			if (typeof keyListeners[key] !== 'undefined') {

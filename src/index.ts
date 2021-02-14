@@ -38,6 +38,7 @@ let clientDataListener = (key: any, val: any, valType: any, mesgType: any, id: a
 	if (val === 'true' || val === 'false') {
 		val = val === 'true';
 	}
+	console.log(key, val, valType, id, flags);
 	mainWindow.webContents.send(mesgType, {
 		key,
 		val,
@@ -94,7 +95,7 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: screen.workArea.width,
 		backgroundColor: "#FFF",
-		height: 570,//screen.workArea.height,
+		height: 620,//screen.workArea.height,
 		// 1366x570 is a good standard height, but you may want to change this to fit your DriverStation's screen better.
 		// It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
 		// The window is closed until the python server is ready
