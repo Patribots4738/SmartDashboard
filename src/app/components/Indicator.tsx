@@ -19,6 +19,7 @@ export default class Indicator extends React.Component<IndicatorProps, Indicator
 		NetworkTables.addKeyListener(this.props.ntTableKey, this.updateDisplay, true);
 	}
 	private updateDisplay(key: string, value: string, isNew: boolean) {
+		console.log(`Receiving ${key} with value: ${value}`);
 		this.setState({value: value});
 	}
 	public render() {

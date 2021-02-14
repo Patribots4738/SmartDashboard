@@ -18,6 +18,7 @@ export default class RadioIndicator extends React.Component<RIndicatorProps, RIn
 		NetworkTables.addKeyListener(this.props.ntTableKey, this.changeActive, true);
 	}
 	private changeActive(key: string, value: string, isNew: boolean) {
+		console.log(`Receiving ${key} with value: ${value}`);
 		this.setState({active: this.props.values.indexOf(value)});
 	}
 	public render() {
