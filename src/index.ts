@@ -101,7 +101,10 @@ function createWindow() {
 		show: false,
 		resizable: false,
 		frame: false,
-		icon: __dirname + './resources/icon2.png'
+		icon: __dirname + './resources/icon2.png',
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
 	// Move window to top (left) of screen.
 	mainWindow.setPosition(0, 0);
