@@ -15,6 +15,9 @@ interface DashState {
 export default class Dashboard extends React.Component<DashProps, DashState> {
 	constructor(props: DashProps) {
 		super(props);
+		setInterval(function() {
+			console.log("Aligned is equal to:" + NetworkTables.getValue("/SmartDashboard/aligned"));
+		}, 500);
 	}
 	public render() {
 		return <>
@@ -39,6 +42,3 @@ export default class Dashboard extends React.Component<DashProps, DashState> {
 	}
 }
 
-setInterval(function() {
-	console.log("Aligned is equal to:" + NetworkTables.getValue("/SmartDashboard/aligned"));
-}, 500);
