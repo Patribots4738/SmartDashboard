@@ -15,7 +15,7 @@ export default class RadioIndicator extends React.Component<RIndicatorProps, RIn
 		this.state = {
 			active: 0
 		};
-		NetworkTables.addKeyListener(this.props.ntTableKey, this.changeActive, true);
+		NetworkTables.addKeyListener("/SmartDashboard/" + this.props.ntTableKey, this.changeActive, true);
 	}
 	private changeActive(key: string, value: string, isNew: boolean) {
 		console.log(`Receiving ${key} with value: ${value}`);
