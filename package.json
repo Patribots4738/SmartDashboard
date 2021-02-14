@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack & tsc",
-    "watch": "npm-watch build"
+    "watch": "npm-watch build",
+    "run": "electron ./build/index.js"
   },
   "watch": {
     "build": {

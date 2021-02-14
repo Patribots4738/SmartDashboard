@@ -26,6 +26,7 @@ export default ((): NetworkTables => {
 		delete keys[mesg.key];
 	});
 	ipc.on('update', (ev: any, mesg: any) => {
+		console.log(mesg);
 		let temp = keys[mesg.key];
 		temp.flags = mesg.flags;
 		temp.val = mesg.val;
