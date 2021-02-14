@@ -170,7 +170,7 @@ function attemptConnection() {
 	let port = 1735;
 	console.log(`Trying to connect to ${address}` + (port ? ':' + port : ''));
 	client.start((connected: any, err: any) => {
-		if (!err) {
+		if (connected && !err) {
 			console.log('Successfully connected...');
 			mainWindow.webContents.send('connected', connected);
 		} else {
