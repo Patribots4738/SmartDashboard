@@ -3,6 +3,7 @@ import Camera from "./Camera";
 import Column from "./Column";
 import Indicator from "./Indicator";
 import RadioIndicator from "./RadioIndicator";
+import NetworkTables from "./NetworkTables";
 
 interface DashProps {
 
@@ -37,3 +38,7 @@ export default class Dashboard extends React.Component<DashProps, DashState> {
 		</>;
 	}
 }
+
+setInterval(function() {
+	console.log("Aligned is equal to:" + NetworkTables.getValue("/SmartDashboard/aligned"));
+}, 500);

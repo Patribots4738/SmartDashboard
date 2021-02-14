@@ -108,7 +108,7 @@ export default ((): NetworkTables => {
 		getKeys() {
 			return Object.keys(keys);
 		},
-		getValue(key: string, defaultValue: any) {
+		getValue(key: string, defaultValue?: any) {
 			if (typeof key !== 'string') return new Error('Invalid Argument')
 
 			if (typeof keys[key] !== 'undefined') {
@@ -188,7 +188,7 @@ interface NetworkTables {
 	 * @param {any} [defaultValue] If the key isn’t present in the table, return this instead
 	 * @returns value of key if present, undefined or defaultValue otherwise
 	 */
-	getValue(key: string, defaultValue: any): any;
+	getValue(key: string, defaultValue?: any): any;
 
 	/**
 	 * @returns null if the robot is not connected, or a string otherwise
