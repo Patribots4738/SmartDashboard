@@ -38,7 +38,6 @@ let clientDataListener = (key: any, val: any, valType: any, mesgType: any, id: a
 	if (val === 'true' || val === 'false') {
 		val = val === 'true';
 	}
-	console.log(key, val, valType, id, flags);
 	mainWindow.webContents.send(mesgType, {
 		key,
 		val,
