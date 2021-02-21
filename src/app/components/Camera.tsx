@@ -17,7 +17,7 @@ export default class Camera extends React.Component<CameraProps, CameraState> {
 		this.state = {
 			setUrl: this.props.url
 		}
-		this.pollServer();
+		/*this.pollServer();*/
 	}
 	pollServer() {
 		fetch(this.props.url).then((res: any) => {

@@ -1,6 +1,6 @@
 :root {
 	--black: #2A2D34;
-	--gray: #454545;
+	--gray: #110916;
 	--viridian-green: #2F9C95;
 	--other-green: #40C9A2;
 	--white: #E5F9E0;
@@ -93,7 +93,6 @@ html, body, #root {
 	text-align: center;
 	font-weight: bolder;
 	font-size: 1.25em;
-	background-image: linear-gradient(45deg, var(--gradientmid) 0%, var(--gradientmid) 20%, var(--gradientend) 50%, var(--gradientmid) 80%, var(--gradientmid) 100%) !important;
 }
 .radioDisplay {
 	margin: 5px;
@@ -114,9 +113,8 @@ html, body, #root {
 	background-color: var(--gradientend);
 }
 .gradient, .circleIndicator::before {
-	background: linear-gradient(45deg, var(--gradientend) 0%, var(--gradientend) 20%, var(--gradientmid) 50%, var(--gradientend) 80%, var(--gradientend) 100%);
-	background-size: 500% 500%;
-	animation: gradient 5s linear infinite;
+	background: linear-gradient(to right, #0575e6, #021b79);
+	background-size: 100% 100%;
 	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent;
