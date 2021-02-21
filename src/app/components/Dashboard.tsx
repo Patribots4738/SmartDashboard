@@ -3,7 +3,7 @@ import Camera from "./Camera";
 import Column from "./Column";
 import Indicator from "./Indicator";
 import RadioIndicator from "./RadioIndicator";
-import NetworkTables from "./NetworkTables";
+import Slider from "./Slider";
 
 interface DashProps {
 
@@ -15,15 +15,13 @@ interface DashState {
 export default class Dashboard extends React.Component<DashProps, DashState> {
 	constructor(props: DashProps) {
 		super(props);
-		setInterval(function() {
-			console.log("Aligned is equal to:" + NetworkTables.getValue("/SmartDashboard/aligned"));
-		}, 500);
 	}
 	public render() {
 		return <>
 			<Column>
 				<Camera url="https://dummyimage.com/320x240/000/fff.png&text=Ball+Camera"/*"http://10.47.38.46:5800/stream.mjpg"*/></Camera>
 				<RadioIndicator ntTableKey="driveMode" values={["Torque", "Speed"]}></RadioIndicator>
+				<Slider min={0.1} max={1} initial={0.6} step={0.05} ntTableKey="trainingSpeed" title="Speed Multiplier"></Slider>
 			</Column>
 			<Column>
 				<Camera url="https://dummyimage.com/240x160/000/fff.png&text=Driver+Camera"/*"http://10.47.38.109:1181/stream.mjpg"*/ maxheight={true}></Camera>

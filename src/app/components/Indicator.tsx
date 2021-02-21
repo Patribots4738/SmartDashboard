@@ -16,10 +16,10 @@ export default class Indicator extends React.Component<IndicatorProps, Indicator
 		this.state = {
 			value: "\u2588"
 		};
-		NetworkTables.addKeyListener("/SmartDashboard/" + this.props.ntTableKey, this.updateDisplay, true);
+		NetworkTables.listenFor(this.props.ntTableKey, this.updateDisplay.bind(this));
 	}
 	private updateDisplay(key: string, value: string, isNew: boolean) {
-		console.log(`Receiving ${key} with value: ${value}`);
+		value = value == undefined ? "🗙" : value;
 		this.setState({value: value});
 	}
 	public render() {

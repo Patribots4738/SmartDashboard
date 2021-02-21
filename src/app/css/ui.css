@@ -39,7 +39,8 @@ html, body, #root {
 	justify-content: flex-start;
 	flex-direction: column;
 	background-color: var(--gray);
-	padding: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
 	height: 100%;
 }
 .camera{
