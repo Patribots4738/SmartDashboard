@@ -28,10 +28,10 @@ export default class Camera extends React.Component<CameraProps, CameraState> {
 			} else {
 				this.reloadStream();
 			}
-			setTimeout(this.pollServer, 500);
+			setTimeout(this.pollServer.bind(this), 500);
 		}).catch((e: unknown) => {
 			this.reloadStream();
-			setTimeout(this.pollServer, 500);
+			setTimeout(this.pollServer.bind(this), 500);
 		});
 		
 	}
