@@ -1,11 +1,14 @@
 let ipc = require('electron').ipcRenderer;
+type Listener = (key: string, val: any, isNew?: boolean) => void;
 
-export default ((): NetworkTables => {
+const NetworkTable = ((): NetworkTables => {
 	let keys = {} as {[key: string]: any}, 
 		connectionListeners = [] as any[],
 		connected = false, 
 		globalListeners = [] as any[],
 		keyListeners = {} as {[key: string]: any},
+		trueKeyListeners = {} as {[key: string]: Listener[]},
+		valHistory = {} as {[key: string]: any},
 		robotAddress = '127.0.0.1';
 	ipc.send('ready');
 	ipc.on('connected', (ev: any, con: any) => {
@@ -71,13 +74,13 @@ export default ((): NetworkTables => {
 		return (key += '')[0] === d3_map_zero ? decodeURIComponent(key.slice(1)) : decodeURIComponent(key);
 	}
 	return {
-		addRobotConnectionListener(f: any, immediateNotify: boolean) {
+		addRobotConnectionListener(f, immediateNotify) {
 			if (typeof f !== 'function') return new Error('Invalid argument')
 
 			connectionListeners.push(f);
 			if (immediateNotify) f(connected);
 		},
-		addGlobalListener(f: any, immediateNotify: boolean) {
+		addGlobalListener(f, immediateNotify) {
 			if (typeof f !== 'function') return new Error('Invalid argument')
 
 			globalListeners.push(f);
@@ -88,7 +91,7 @@ export default ((): NetworkTables => {
 				}
 			}
 		},
-		addKeyListener(key: string, f: any, immediateNotify: boolean) {
+		addKeyListener(key, f, immediateNotify) {
 			if (typeof key !== 'string' || typeof f !== 'function') return new Error('Valid Arguments are (string, function)')
 
 			if (typeof keyListeners[key] !== 'undefined') {
@@ -102,13 +105,13 @@ export default ((): NetworkTables => {
 				f(key, temp.val, temp.new);
 			}
 		},
-		containsKey(key: string) {
+		containsKey(key) {
 			return key in keys;
 		},
 		getKeys() {
 			return Object.keys(keys);
 		},
-		getValue(key: string, defaultValue?: any) {
+		getValue(key, defaultValue) {
 			if (typeof key !== 'string') return new Error('Invalid Argument')
 
 			if (typeof keys[key] !== 'undefined') {
@@ -124,7 +127,7 @@ export default ((): NetworkTables => {
 		isRobotConnected() {
 			return connected;
 		},
-		putValue(key: string, value: any) {
+		putValue(key, value) {
 			if (typeof keys[key] !== 'undefined') {
 				keys[key].val = value;
 				ipc.send('update', { key, val: value, id: keys[key].id, flags: keys[key].flags });
@@ -140,9 +143,29 @@ export default ((): NetworkTables => {
 		keyToId: encodeURIComponent,
 		keySelector(key: string) {
 			return encodeURIComponent(key).replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+		},
+		listenFor(key, callback) {
+			if (trueKeyListeners[key]) {
+				trueKeyListeners[key].push(callback);
+			} else {
+				trueKeyListeners[key] = [callback];
+			}
+
+		},
+		clock() {
+			Object.keys(trueKeyListeners).forEach(key=>{
+				let val = NetworkTable.getValue("/SmartDashboard/" + key);
+				trueKeyListeners[key].forEach(func => {
+					func(key, val, val === valHistory[key]);
+				});
+				valHistory[key] = val;
+			});
+			setTimeout(this.clock, 20);
 		}
 	}
 })();
+NetworkTable.clock();
+export default NetworkTable;
 
 interface NetworkTables {
 	/**
@@ -227,6 +250,16 @@ interface NetworkTables {
 	 * @returns Escaped value
 	 */
 	keySelector(key: string): string;
+	/**
+	 * It's like addKeyListener but it actually works and continuously sends the values of the key it is monitoring
+	 * @param key the NetworkTables key
+	 * @param callback the function that will constantly be called with the value of the key
+	 */
+	listenFor(key: string, callback: Listener): void;
+	/**
+	 * acts as a 20 millisecond clock for updating listener values
+	 * do not call this function on your own
+	 */
+	clock(): void;
 }
 
-type Listener = (key: string, val: any, isNew: boolean) => void;
