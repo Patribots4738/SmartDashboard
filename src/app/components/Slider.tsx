@@ -30,8 +30,12 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
 	render() {
 		return <div className="slider">
 			<div className="sliderTitle">{this.props.title}</div>
-			<input type="range" min={this.props.min} max={this.props.max} step={this.props.step} onInput={this.changedValue.bind(this)} value={this.props.initial === this.state.value ? this.props.initial : this.state.value}></input>
-			<div className="sliderValue">{this.state.value}</div>
+			<div className="flexRow">
+				<input type="range" min={this.props.min} max={this.props.max} step={this.props.step} onInput={this.changedValue.bind(this)} value={
+					this.props.initial === this.state.value ? this.props.initial : this.state.value
+				}></input>
+				<div className="sliderValue">{this.state.value}</div>
+			</div>
 		</div>
 	}
 }

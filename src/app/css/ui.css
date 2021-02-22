@@ -1,11 +1,12 @@
 :root {
-	--black: #2A2D34;
-	--gray: #110916;
+	--black: #110916;
+	--gray: #2A2D34;
+	--navy: rgba(30, 30, 80, 1);
 	--viridian-green: #2F9C95;
 	--other-green: #40C9A2;
 	--white: #E5F9E0;
-	--gradientend: rgba(209, 0, 255, 1);
-	--gradientmid: rgba(255, 184, 0, 1);
+	--gradientend: #0575e6;
+	--gradientmid: #00ffde;
 	--circleDiameter: 90px;
 }
 
@@ -88,11 +89,12 @@ html, body, #root {
 	justify-content: center;
 	flex-direction: row;
 }
-.circleTitle {
+div.circleTitle {
 	max-width: calc(var(--circleDiameter) + 20px);
 	text-align: center;
 	font-weight: bolder;
 	font-size: 1.25em;
+	background-image: linear-gradient(45deg, var(--gradientmid) 0%, var(--gradientmid) 20%, var(--gradientend) 50%, var(--gradientmid) 80%, var(--gradientmid) 100%);
 }
 .radioDisplay {
 	margin: 5px;
@@ -100,22 +102,84 @@ html, body, #root {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	background-color: var(--gray);
-	color: var(--white);
+	background-color: var(--navy);
 	font-weight: bold;
 	font-size: 1.5em;
 }
 .radioButton {
 	background-color: var(--black);
 	padding: 30px;
+	position: relative;
+	z-index: 1;
+	color: var(--gray);
 }
-.selected {
-	background-color: var(--gradientend);
+.radioButton::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+div.selected {
+	color: transparent;
+}
+div.selected::after {
+	background-color: transparent;
 }
 .gradient, .circleIndicator::before {
-	background: linear-gradient(to right, #0575e6, #021b79);
-	background-size: 100% 100%;
+	animation: gradient 5s linear infinite;
+	background-image: linear-gradient(45deg, var(--gradientend) 0%, var(--gradientend) 20%, var(--gradientmid) 50%, var(--gradientend) 80%, var(--gradientend) 100%);
+	background-size: 500% 500%;
 	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent;
 }
+
+.slider {
+	width: 100%;
+	color: var(--white);
+	font-size: 1.5em;
+}
+.flexRow {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+.sliderValue {
+	width: 20%;
+	background-color: var(--gray);
+	border-radius: 5px;
+	
+}
+
+
+input[type=range] {
+	-webkit-appearance: none;
+	background-color: transparent;
+	flex-grow: 1;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	cursor: pointer;
+	background: var(--black);
+	border-radius: 25px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: var(--gradientend);
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {}
