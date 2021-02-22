@@ -8,6 +8,7 @@ interface CameraProps {
 }
 interface CameraState {
 	setUrl: string;
+	loaded: boolean;
 }
 
 export default class Camera extends React.Component<CameraProps, CameraState> {
@@ -15,34 +16,34 @@ export default class Camera extends React.Component<CameraProps, CameraState> {
 	constructor(props: CameraProps) {
 		super(props);
 		this.state = {
-			setUrl: this.props.url
+			setUrl: this.props.url,
+			loaded: false
 		}
-		/*this.pollServer();*/
+		this.pollServer();
 	}
-	pollServer() {
-		fetch(this.props.url).then((res: any) => {
-			if (res) {
-				if (Number(res.headers.get("content-length")) < 100) {
-					this.reloadStream();
-				}
-			} else {
-				this.reloadStream();
+	async pollServer() {
+		try {
+			await fetch(this.props.url);
+			if (!this.state.loaded) {
+				throw "Please reload the image";
 			}
-			setTimeout(this.pollServer.bind(this), 500);
-		}).catch((e: unknown) => {
-			this.reloadStream();
-			setTimeout(this.pollServer.bind(this), 500);
-		});
-		
+		} catch (e: unknown) {
+			this.setState({loaded: false});
+			this.tryImageReload();
+		};
+		setTimeout(this.pollServer.bind(this), 500);
 	}
-	reloadStream() {
-		this.setState({setUrl: "https://dummyimage.com/240x160/000/fff.png"});
-		this.setState({setUrl: this.props.url});;
+	private tryImageReload(e?: string) {
+		if (!this.state.loaded) {
+			console.log("Trying to reload image", this.props.url);
+			this.setState({setUrl:""});
+			this.setState({setUrl: this.props.url});
+		}
 	}
 	public render() {
 		return <img className="camera" src={this.state.setUrl} style={{
 			width: this.props.maxheight ? "auto" : "100%",
 			height: this.props.maxheight ? "100%" : "auto"
-		}} onError={this.reloadStream.bind(this)}></img>;
+		}} onError={this.tryImageReload.bind(this)} onLoad={(()=>{this.setState({loaded: true})}).bind(this)}></img>;
 	}
 }

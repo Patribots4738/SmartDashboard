@@ -23,7 +23,7 @@ export default class RadioIndicator extends React.Component<RIndicatorProps, RIn
 	public render() {
 		return <div className="radioDisplay">{
 			...this.props.values.map(s => {
-				return <div className={`radioButton ${s === this.props.values[this.state.active] ? "selected" : ""}`} key={s}>{s}</div>;
+				return <div className={`radioButton${s === this.props.values[this.state.active] ? " selected gradient" : ""}`} key={s}>{s}</div>;
 			})
 		}</div>
 	}
