@@ -31,7 +31,7 @@ export default class Camera extends React.Component<CameraProps, CameraState> {
 			this.setState({loaded: false});
 			this.tryImageReload();
 		};
-		setTimeout(this.pollServer.bind(this), 500);
+		setTimeout(this.pollServer.bind(this), 5000);
 	}
 	private tryImageReload(e?: string) {
 		if (!this.state.loaded) {
