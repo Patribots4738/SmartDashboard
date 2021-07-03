@@ -9,7 +9,7 @@
   "author": "Nicholas264",
   "license": "MIT",
   "dependencies": {
-    "electron": "^4.0.1",
+    "electron": "^9.4.0",
     "wpilib-nt-client": "^1.7.1"
   }
 }
