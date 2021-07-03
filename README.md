@@ -1,6 +1,7 @@
 # SmartDashboard
 
 This is a user interface for displaying robot information and tuning values.
+
 ![Interface preview](https://raw.githubusercontent.com/Patribots4738/SmartDashboard/main/img/preview.png)
 
 ## How to get started
